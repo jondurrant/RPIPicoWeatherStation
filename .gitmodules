@@ -1,0 +1,3 @@
+[submodule "lib/RPIPicoDormantRTC"]
+	path = lib/RPIPicoDormantRTC
+	url = https://github.com/jondurrant/RPIPicoDormantRTC
