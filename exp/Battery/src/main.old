@@ -1,0 +1,119 @@
+/**
+ * Battery Monitor
+ */
+
+#include "pico/stdlib.h"
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include "hardware/gpio.h"
+#include "hardware/adc.h"
+#include "pico/cyw43_arch.h"
+
+
+#define EN_ADC3	25
+#define PICO_FIRST_ADC_PIN 26
+#define PICO_POWER_SAMPLE_COUNT 10
+
+
+double vsysVolts(){
+	 adc_select_input(PICO_VSYS_PIN - 26);
+	 const float conversion_factor =  9.875 / (1<<12);
+	 uint16_t result = adc_read();
+	 printf("ADC %u\n", result);
+	 return( result * conversion_factor);
+}
+
+int power_voltage(float *voltage_result) {
+#ifndef PICO_VSYS_PIN
+    return PICO_ERROR_NO_DATA;
+#endif
+#if CYW43_USES_VSYS_PIN
+    cyw43_thread_enter();
+    // Make sure cyw43 is awake
+    cyw43_arch_gpio_get(CYW43_WL_GPIO_VBUS_PIN);
+#endif
+
+    // setup adc
+    adc_gpio_init(PICO_VSYS_PIN);
+    adc_select_input(PICO_VSYS_PIN - PICO_FIRST_ADC_PIN);
+
+    adc_fifo_setup(true, false, 0, false, false);
+    adc_run(true);
+
+#if CYW43_USES_VSYS_PIN
+    // We seem to read low values from cyw43 sometimes - this seems to fix it
+    int ignore_count = PICO_POWER_SAMPLE_COUNT;
+    while (!adc_fifo_is_empty() || ignore_count-- > 0) {
+        (void)adc_fifo_get_blocking();
+    }
+#endif
+
+    // read vsys
+    uint32_t vsys = 0;
+    for(int i = 0; i < PICO_POWER_SAMPLE_COUNT; i++) {
+        uint16_t val = adc_fifo_get_blocking();
+        vsys += val;
+    }
+
+    adc_run(false);
+    adc_fifo_drain();
+
+    vsys /= PICO_POWER_SAMPLE_COUNT;
+#if CYW43_USES_VSYS_PIN
+    cyw43_thread_exit();
+#endif
+    // Generate voltage
+    const float conversion_factor = 3.3f / (1 << 12);
+    *voltage_result = vsys * 3 * conversion_factor;
+    return PICO_OK;
+}
+
+
+int main() {
+	uint resurrect = 0;
+    stdio_init_all();
+    sleep_ms(2000);
+    printf("GO\n");
+
+    cyw43_arch_init();
+
+    gpio_init(EN_ADC3);
+    gpio_set_dir (EN_ADC3, GPIO_OUT);
+    gpio_put(EN_ADC3, false);
+   // gpio_init(PICO_VSYS_PIN);
+
+    adc_init();
+    adc_gpio_init(PICO_VSYS_PIN);
+
+    gpio_put(EN_ADC3, false);
+
+
+  if (cyw43_arch_gpio_get(CYW43_WL_GPIO_VBUS_PIN)){
+	  printf("VBUS Powered\n");
+  } else {
+	  printf("VSYS Powered\n");
+  }
+
+  float volts;
+
+  for (;;){
+
+
+	  /*
+	  sleep_ms(1000);
+	  CYW43_THREAD_ENTER;
+	  gpio_put(EN_ADC3, true);
+	  printf("VSYS = %.2f V \n", vsysVolts());
+	  gpio_put(EN_ADC3, false);
+	  CYW43_THREAD_EXIT;
+	  */
+
+	  power_voltage( &volts) ;
+	  printf("VSYS = %.2f V \n", volts);
+
+
+	   sleep_ms(1000);
+   }
+
+}
