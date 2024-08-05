@@ -29,7 +29,7 @@ void setupWake(){
 	gpio_init(WAKE_PAD);
 	gpio_pull_up(WAKE_PAD);
 	gpio_set_dir(WAKE_PAD, GPIO_IN);
-	gpio_set_irq_enabled_with_callback(
+	gpio_set_irq_enabled_with_callback (
 		  WAKE_PAD,
 		   GPIO_IRQ_EDGE_FALL,
 		   true,
@@ -75,7 +75,7 @@ void local_sleep_goto_sleep_until(datetime_t *t, rtc_callback_t callback) {
     		| CLOCKS_SLEEP_EN0_CLK_SYS_PWM_BITS;
     clocks_hw->sleep_en1 = 0x0;
 
-    rtc_set_alarm(t, callback);
+   rtc_set_alarm(t, callback);
 
     uint save = scb_hw->scr;
     // Enable deep sleep at the proc

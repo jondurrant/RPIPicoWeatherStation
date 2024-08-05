@@ -1,195 +1,172 @@
-/**
- * Simple Hibernate and Recovery on a Raspberry PI Pico
- * LED is flashed on GPIO 2 while a wake
- *
- * RTC DS3231 connected on I2C to GP12 & 13
- * RTC SQW used for interupt to wake on GP10
- */
 
+#include <stdio.h>
 #include "pico/stdlib.h"
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
+#include "pico/binary_info.h"
+#include "hardware/i2c.h"
 
-
-
-#define LED_PAD 2
-#define DELAY 500 // in microseconds
+#define I2CCHAN i2c0
 #define SDA_PAD 12
 #define SCL_PAD 13
 
-#define WAKE_PAD 10
+#define REG_ULTRAVIOLET_INTENSITY 0x0008 ///< Register for protocol transition adapter
+#define REG_LUMINOUS_INTENSITY    0x0009 ///< Register for protocol transition adapter
+#define REG_TEMP                  0x000A ///< Register for protocol transition adapter
+#define REG_HUMIDITY              0x000B ///< Register for protocol transition adapter
+#define REG_ATMOSPHERIC_PRESSURE  0x000C ///< Register for protocol transition adapter
 
-#define UART_ID uart1
-#define BAUD_RATE 9600
-#define UART_TX_PIN 20
-#define UART_RX_PIN 21
+#define SEN0500_ADDR 0x0022
 
 
-void flash(uint count=1){
-	const uint LED_PIN = LED_PAD;
 
-	for (uint i=0; i < count; i++){
-		gpio_put(LED_PIN, 1);
-		sleep_ms(DELAY);
-		gpio_put(LED_PIN, 0);
-		sleep_ms(DELAY);
+uint8_t readReg(uint16_t reg, uint8_t *pBuf, uint8_t size){
+	uint8_t r = reg * 2;
+	int ret = i2c_write_timeout_us	(
+			I2CCHAN,
+			SEN0500_ADDR,
+			&r,
+			1,
+			true,
+			10000);
+
+	     if (ret != 1){
+	     	return 0;
+	     }else {
+	     	 ret = i2c_read_blocking(I2CCHAN, 0x0022,  pBuf,  size, false);
+	     	 return ret;
+	     }
+}
+
+bool readTemp(float *temp){
+    uint16_t data;
+    uint8_t buffer[2];
+
+	int ret = readReg(REG_TEMP, buffer, 2);
+	if (ret == 2){
+		data = buffer[0] << 8 | buffer[1];
+		 *temp = (-45) +((data * 175.00) / 1024.00 / 64.00);
+		 return true;
 	}
+	return false;
 }
 
-template<size_t s>
-struct sRtuPacketHeader {
-  uint16_t len;
-  uint8_t id;
-  uint8_t cmd;
- uint8_t payload[s];
-  uint16_t cs;
-}  ;
+bool readHumid(float *humid){
+    uint16_t data;
+    uint8_t buffer[2];
 
-typedef  sRtuPacketHeader<0> sRtuPacketHeader_t, *pRtuPacketHeader_t;
-
-uint16_t calculateCRC(uint8_t *data, uint8_t len){
-  uint16_t crc = 0xFFFF;
-  for( uint8_t pos = 0; pos < len; pos++){
-    crc ^= (uint16_t)data[ pos ];
-    for(uint8_t i = 8; i != 0; i--){
-      if((crc & 0x0001) != 0){
-        crc >>= 1;
-        crc ^= 0xA001;
-      }else{
-         crc >>= 1;
-      }
-    }
-  }
-  crc = ((crc & 0x00FF) << 8) | ((crc & 0xFF00) >> 8);
-  return crc;
-}
-
-pRtuPacketHeader_t  packed(uint8_t id, uint8_t cmd, void *data, uint16_t size){
-  pRtuPacketHeader_t header = NULL;
-  uint16_t crc = 0;
-  if((data == NULL) || (size == 0)) return NULL;
-  if((header = (pRtuPacketHeader_t)malloc(sizeof(sRtuPacketHeader_t) + size)) == NULL){
-    printf("Memory ERROR");
-    return NULL;
-  }
-  header->len = sizeof(sRtuPacketHeader_t) + size - 2;
-  header->id = id;
-  header->cmd = cmd;
-  memcpy(header->payload, data, size);
-  crc = calculateCRC((uint8_t *)&(header->id), (header->len) - 2);
-  ((uint8_t *)header->payload)[size] = (crc >> 8) & 0xFF;
-  ((uint8_t *)header->payload)[size+1] = crc & 0xFF;
-  return header;
-}
-
-#define DEBUG_LINE 25
-
-void debugPrintBuffer(const char *title, const void * pBuffer, size_t bytes){
-	size_t count =0;
-	size_t lineEnd=0;
-	const uint8_t *pBuf = (uint8_t *)pBuffer;
-
-	printf("DEBUG: %s of size %d\n", title, bytes);
-
-	while (count < bytes){
-		lineEnd = count + DEBUG_LINE;
-		if (lineEnd > bytes){
-			lineEnd = bytes;
-		}
-
-		//Print HEX DUMP
-		for (size_t i=count; i < lineEnd; i++){
-			if (pBuf[i] <= 0x0F){
-				printf("0%X ", pBuf[i]);
-			} else {
-				printf("%X ", pBuf[i]);
-			}
-		}
-
-		//Pad for short lines
-		size_t pad = (DEBUG_LINE - (lineEnd - count)) * 3;
-		for (size_t i=0; i < pad; i++){
-			printf(" ");
-		}
-
-		//Print Plain Text
-		for (size_t i=count; i < lineEnd; i++){
-			if ((pBuf[i] >= 0x20) && (pBuf[i] <= 0x7e)){
-				printf("%c", pBuf[i]);
-			} else {
-				printf(".");
-			}
-		}
-
-		printf("\n");
-
-		count = lineEnd;
-
+	int ret = readReg(REG_HUMIDITY, buffer, 2);
+	if (ret == 2){
+		data = buffer[0] << 8 | buffer[1];
+		 *humid = ((data * 100.00) / 65536.00);
+		 return true;
 	}
+	return false;
+}
+
+bool readPressure(uint16_t *atmosphere){
+    uint16_t data;
+    uint8_t buffer[2];
+
+	int ret = readReg(REG_ATMOSPHERIC_PRESSURE, buffer, 2);
+	if (ret == 2){
+		data = buffer[0] << 8 | buffer[1];
+		 *atmosphere = data;
+		 return true;
+	}
+	return false;
+}
+
+bool readVer(uint16_t *version){
+    uint16_t data;
+    uint8_t buffer[2];
+
+	int ret = readReg(0x05, buffer, 2);
+	if (ret == 2){
+		*version = buffer[0] << 8 | buffer[1];
+		 return true;
+	}
+	return false;
+}
+
+bool readUV(float *intensity){
+    uint16_t data;
+    uint8_t buffer[2];
+
+	int ret = readReg(REG_ULTRAVIOLET_INTENSITY, buffer, 2);
+	if (ret == 2){
+		data = buffer[0] << 8 | buffer[1];
+		 *intensity = (float)data/1800.0;
+		 return true;
+	}
+	return false;
+}
+
+bool readLumi(float *lumi){
+    uint16_t data;
+    uint8_t buffer[2];
+
+	int ret = readReg(REG_ULTRAVIOLET_INTENSITY, buffer, 2);
+	if (ret == 2){
+		data = buffer[0] << 8 | buffer[1];
+		float luminous = data;
+		luminous = luminous * (1.0023f + luminous * (8.1488e-5f + luminous * (-9.3924e-9f + luminous * 6.0135e-13f)));
+		 *lumi = luminous;
+		 return true;
+	}
+	return false;
 }
 
 
 int main() {
-	uint resurrect = 0;
+
     stdio_init_all();
-    sleep_ms(2000);
-    printf("GO\n");
 
-    //Setup LED
-    const uint LED_PIN = LED_PAD;
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
-
-    flash(5);
+    // This example will use I2C0 on the default SDA and SCL pins (GP4, GP5 on a Pico)
+     i2c_init(I2CCHAN, 100 * 1000);
+     gpio_set_function(SDA_PAD, GPIO_FUNC_I2C);
+     gpio_set_function(SCL_PAD, GPIO_FUNC_I2C);
+     gpio_pull_up(SDA_PAD);
+     gpio_pull_up(SCL_PAD);
 
 
-    uart_init(UART_ID, BAUD_RATE);
-    gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
-    gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
+     float temp;
+     float humid;
+     uint16_t atmos;
+     uint16_t ver;
+     float uv;
+     float lumi;
+
+     for (;;){
+    	 printf("\n");
+    	 if (readVer(&ver)){
+    		 printf("Firmware version %X\n", ver);
+    	 }
+
+    	 if(readTemp(&temp)){
+    		 printf("Temp %0.2f\n", temp);
+    	 } else {
+    		 printf("Read failed\n");
+    	 }
+
+    	 if(readHumid(&humid)){
+			 printf("Humid %0.2f %%\n", humid);
+		 }
+
+
+    	 if(readPressure(&atmos)){
+			 printf("Pressure %d hPa \n", atmos);
+		 }
+
+    	 if (readUV(&uv)){
+    		 printf("UV Intensity %.5f mW/m2\n", uv);
+    	 }
+
+    	 if (readLumi(&lumi)){
+    		 printf("Lumi %.5f lx \n ", lumi);
+    	 }
 
 
 
-   for (;;){
+    	 sleep_ms(1000);
+     }
 
-	   uint reg = 0x000A;
-	   uint regNum = 2;
-	   uint8_t temp[4] = {
-			   (uint8_t)((reg >> 8) & 0xFF),
-			   (uint8_t)(reg & 0xFF),
-			   (uint8_t)((regNum >> 8) & 0xFF),
-			   (uint8_t)(regNum & 0xFF)
-	   };
-
-	   uint8_t d[2];
-	   uint8_t id = 0x22;
-	   uint8_t cmd = 0x04;
-
-	   pRtuPacketHeader_t p = packed(
-			   id,
-			   cmd,
-			   d,
-			   2);
-
-
-	   debugPrintBuffer("Send", (const uint8_t *)p,
-	   	   	   sizeof(*p)
-			   );
-	   uart_write_blocking (
-			   UART_ID,
-			   (const uint8_t *)p,
-	   	   	   sizeof(*p)
-			   );
-
-
-	   while (uart_is_readable(UART_ID)){
-		   char c = uart_getc(UART_ID);
-		   printf("%c", c);
-	   }
-	   printf("\nEnd of Data\n");
-
-	   sleep_ms(1000);
-	   flash(5);
-   }
-
-}
+ }
