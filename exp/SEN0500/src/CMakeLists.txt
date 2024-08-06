@@ -1,5 +1,6 @@
 add_executable(${NAME}
         main.cpp
+        Sen0500.cpp
         )
 
 # Pull in our pico_stdlib which pulls in commonly used features

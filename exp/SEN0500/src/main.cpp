@@ -3,6 +3,7 @@
 #include "pico/stdlib.h"
 #include "pico/binary_info.h"
 #include "hardware/i2c.h"
+#include "Sen0500.h"
 
 #define I2CCHAN i2c0
 #define SDA_PAD 12
@@ -135,7 +136,27 @@ int main() {
      float uv;
      float lumi;
 
+     Sen0500 sen(I2CCHAN);
+
+
      for (;;){
+
+    	 sen.readTemp(&temp);
+    	 sen.readHumid(&humid);
+    	 sen.readPressure(&atmos);
+    	 sen.readUV(&uv);
+    	 sen.readLumi(&lumi);
+
+    	 printf("%0.2f C, %0.2f%%, %dhPa, %0.5fmW/M2, %0.5flx\n",
+    			 temp,
+				 humid,
+				 atmos,
+				 uv,
+				lumi
+    			 );
+
+
+    	 /*
     	 printf("\n");
     	 if (readVer(&ver)){
     		 printf("Firmware version %X\n", ver);
@@ -163,6 +184,8 @@ int main() {
     	 if (readLumi(&lumi)){
     		 printf("Lumi %.5f lx \n ", lumi);
     	 }
+    	 */
+
 
 
 
