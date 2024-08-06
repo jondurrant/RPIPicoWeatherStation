@@ -17,6 +17,8 @@
 
 #define SEN0500_ADDR 0x0022
 
+#define SEN0500_CS 11
+
 
 
 uint8_t readReg(uint16_t reg, uint8_t *pBuf, uint8_t size){
@@ -127,6 +129,11 @@ int main() {
      gpio_set_function(SCL_PAD, GPIO_FUNC_I2C);
      gpio_pull_up(SDA_PAD);
      gpio_pull_up(SCL_PAD);
+
+     gpio_init(SEN0500_CS);
+     gpio_set_dir(SEN0500_CS, GPIO_OUT);
+     gpio_put(SEN0500_CS, true);
+     sleep_ms(8000);
 
 
      float temp;
