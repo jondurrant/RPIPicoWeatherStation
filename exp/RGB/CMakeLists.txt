@@ -3,7 +3,7 @@ set(CMAKE_C_COMPILER_WORKS 1 CACHE INTERNAL "")
 set(CMAKE_CXX_COMPILER_WORKS 1 CACHE INTERNAL "")
 
 # Change your executable name to something creative!
-set(NAME WeatherStation) # <-- Name your project/executable here!
+set(NAME RGB) # <-- Name your project/executable here!
 
 include(pico_sdk_import.cmake)
 
@@ -14,8 +14,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Initialize the SDK
 pico_sdk_init()
-
-include(ahtxx_import.cmake)
 
 add_subdirectory(src)
 

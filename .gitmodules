@@ -1,3 +1,6 @@
 [submodule "lib/RPIPicoDormantRTC"]
 	path = lib/RPIPicoDormantRTC
 	url = https://github.com/jondurrant/RPIPicoDormantRTC
+[submodule "lib/AHTXX_PICO"]
+	path = lib/AHTXX_PICO
+	url = https://github.com/gavinlyonsrepo/AHTXX_PICO

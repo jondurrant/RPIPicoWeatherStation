@@ -1,23 +1,11 @@
 add_executable(${NAME}
         main.cpp
-        
-        Anemometer.cpp
-        WindVane.cpp
-        Rain.cpp
-        Sen0500.cpp
-        
-        GPIOInputMgr.cpp
-        GPIOObserver.cpp
-        
         )
 
 # Pull in our pico_stdlib which pulls in commonly used features
 target_link_libraries(${NAME} 
     pico_stdlib
-	hardware_adc
-	hardware_pwm
-	hardware_i2c
-	AHTXX
+	
     )
 
 target_include_directories(${NAME} PRIVATE 
