@@ -23,6 +23,7 @@
 #include "ahtxx/ahtxx.hpp"
 
 #include "DS3231.hpp"
+#include "PowerCtr.h"
 
 #define I2CCHAN i2c1
 #define SDA1_PAD 18
@@ -77,9 +78,6 @@ int main() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
 
 
-    gpio_init(SNR_CTR);
-    gpio_set_dir(SNR_CTR, GPIO_OUT);
-    gpio_put(SNR_CTR, true);
 
 
 
@@ -96,20 +94,25 @@ int main() {
     uint32_t last = 0;
 
 
+    PowerCtr snrCtr(SNR_CTR);
+
     i2c_init(I2CCHAN, 100 * 1000);
 	gpio_set_function(SDA1_PAD, GPIO_FUNC_I2C);
 	gpio_set_function(SCL1_PAD, GPIO_FUNC_I2C);
-	gpio_pull_up(SDA1_PAD);
-	gpio_pull_up(SCL1_PAD);
+	//gpio_pull_up(SDA1_PAD);
+	//gpio_pull_up(SCL1_PAD);
+	snrCtr.pullUpI2C(SDA1_PAD, SCL1_PAD);
+	snrCtr.on();
 
 	 LIB_AHTXX myAHT10(AHT10_ADDRESS_0X38, I2CCHAN, SDA1_PAD,  SCL1_PAD, 100 * 1);
 
 
-	 gpio_init(RTC_VCC);
-	 gpio_set_dir(RTC_VCC, GPIO_OUT);
-	 gpio_put(RTC_VCC, true);
-	 gpio_pull_up(SDA0_PAD);
-	 gpio_pull_up(SCL0_PAD);
+	 PowerCtr rtcCtr(RTC_VCC);
+	 rtcCtr.pullUpI2C(SDA0_PAD, SCL0_PAD);
+	 rtcCtr.on();
+
+	 //gpio_pull_up(SDA0_PAD);
+	//gpio_pull_up(SCL0_PAD);
 	 DS3231 rtc(i2c0,  SDA0_PAD,  SCL0_PAD);
 	 printf("RTC: %s\n", rtc.get_time_str());
 
@@ -131,61 +134,76 @@ int main() {
 
    for (;;){
 
-	 printf("\n");
-	 printf("RTC: %s\n", rtc.get_time_str());
+	   for (int i=0; i < 5; i++){
 
-	 sen.readTemp(&temp);
-	 sen.readHumid(&humid);
-	 sen.readPressure(&atmos);
-	 sen.readUV(&uv);
-	 sen.readLumi(&lumi);
+		 printf("\n");
+		 printf("RTC: %s\n", rtc.get_time_str());
 
-	  printf("SEN0500 \t%.2f C, %.2f%%, %dhPa, %.5fmW/M2, %0.5flx\n",
-			 temp,
-			 humid,
-			 atmos,
-			 uv,
-			lumi
-			 );
+		 sen.readTemp(&temp);
+		 sen.readHumid(&humid);
+		 sen.readPressure(&atmos);
+		 sen.readUV(&uv);
+		 sen.readLumi(&lumi);
 
-	  printf("AHT10   \t%.2fC,  %.2f\n",
-	  				myAHT10.AHT10_readTemperature(true),
-	  				myAHT10.AHT10_readHumidity(true));
+		  printf("SEN0500 \t%.2f C, %.2f%%, %dhPa, %.5fmW/M2, %0.5flx\n",
+				 temp,
+				 humid,
+				 atmos,
+				 uv,
+				lumi
+				 );
 
-	   printf("Rain %u = %0.2f\n",
-			   rain.pulseCount(),
-			   rain.mmRain()
-			   );
+		  printf("AHT10   \t%.2fC,  %.2f\n",
+						myAHT10.AHT10_readTemperature(true),
+						myAHT10.AHT10_readHumidity(true));
 
-	   uint32_t now =  to_ms_since_boot (get_absolute_time());
-	   if ((now - last) > 5000){
-		   last = now;
-		   rain.reset();
-		   printf("RESET\n");
+		   printf("Rain %u = %0.2f\n",
+				   rain.pulseCount(),
+				   rain.mmRain()
+				   );
+
+		   uint32_t now =  to_ms_since_boot (get_absolute_time());
+		   if ((now - last) > 5000){
+			   last = now;
+			   rain.reset();
+			   printf("RESET\n");
+		   }
+
+
+
+
+
+		   for (int i=0; i < 10; i++){
+			   vane.sample();
+			   sleep_ms(100);
+		   }
+		   printf("PPS %.2f   KMPS %.2f      %.2f < %.2f Gust: %.2f \n",
+				   anem.pulsesPerSec(),
+				   anem.kmph(),
+				   anem.minKmph(),
+				   anem.maxKmph(),
+				   anem.gustKmph()
+				   );
+
+		   printf("Vane %.2f  %.2f < %.2f \n",
+				   vane.getDegrees(),
+				   vane.getMinDeg(),
+				   vane.getMaxDeg()
+				   );
+		   flash(3);
+
 	   }
 
+	   printf("\nWAIT\n");
+	   sleep_ms(5000);
 
-
-
-
-	   for (int i=0; i < 10; i++){
-		   vane.sample();
-		   sleep_ms(100);
-	   }
-	   printf("PPS %.2f   KMPS %.2f      %.2f < %.2f Gust: %.2f \n",
-			   anem.pulsesPerSec(),
-			   anem.kmph(),
-			   anem.minKmph(),
-			   anem.maxKmph(),
-			   anem.gustKmph()
-			   );
-
-	   printf("Vane %.2f  %.2f < %.2f \n",
-			   vane.getDegrees(),
-			   vane.getMinDeg(),
-			   vane.getMaxDeg()
-			   );
-	   flash(3);
+	   printf("\nSLEEP\n");
+	   snrCtr.off();
+	   rtcCtr.off();
+	   sleep_ms(5000);
+	   printf("WAKE\n");
+	   snrCtr.on();
+	   rtcCtr.on();
 
 
    }

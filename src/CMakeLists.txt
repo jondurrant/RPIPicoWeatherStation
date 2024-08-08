@@ -6,6 +6,8 @@ add_executable(${NAME}
         Rain.cpp
         Sen0500.cpp
         
+        PowerCtr.cpp
+        
         GPIOInputMgr.cpp
         GPIOObserver.cpp
         
