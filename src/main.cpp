@@ -22,9 +22,15 @@
 #include "Sen0500.h"
 #include "ahtxx/ahtxx.hpp"
 
+#include "DS3231.hpp"
+
 #define I2CCHAN i2c1
-#define SDA_PAD 18
-#define SCL_PAD 19
+#define SDA1_PAD 18
+#define SCL1_PAD 19
+
+#define SDA0_PAD 20
+#define SCL0_PAD 21
+#define RTC_VCC 22
 
 
 #define LED_PAD 8
@@ -35,6 +41,8 @@
 #define ANEM_PAD 13
 #define DIRP_PAD 	   14
 #define DIRA_PAD    28
+
+#define SNR_CTR 12
 
 
 
@@ -69,6 +77,11 @@ int main() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
 
 
+    gpio_init(SNR_CTR);
+    gpio_set_dir(SNR_CTR, GPIO_OUT);
+    gpio_put(SNR_CTR, true);
+
+
 
     Anemometer anem(ANEM_PAD);
     anem.start();
@@ -84,13 +97,21 @@ int main() {
 
 
     i2c_init(I2CCHAN, 100 * 1000);
-	gpio_set_function(SDA_PAD, GPIO_FUNC_I2C);
-	gpio_set_function(SCL_PAD, GPIO_FUNC_I2C);
-	gpio_pull_up(SDA_PAD);
-	gpio_pull_up(SCL_PAD);
+	gpio_set_function(SDA1_PAD, GPIO_FUNC_I2C);
+	gpio_set_function(SCL1_PAD, GPIO_FUNC_I2C);
+	gpio_pull_up(SDA1_PAD);
+	gpio_pull_up(SCL1_PAD);
 
-	 LIB_AHTXX myAHT10(AHT10_ADDRESS_0X38, I2CCHAN, SDA_PAD,  SCL_PAD, 100 * 1);
+	 LIB_AHTXX myAHT10(AHT10_ADDRESS_0X38, I2CCHAN, SDA1_PAD,  SCL1_PAD, 100 * 1);
 
+
+	 gpio_init(RTC_VCC);
+	 gpio_set_dir(RTC_VCC, GPIO_OUT);
+	 gpio_put(RTC_VCC, true);
+	 gpio_pull_up(SDA0_PAD);
+	 gpio_pull_up(SCL0_PAD);
+	 DS3231 rtc(i2c0,  SDA0_PAD,  SCL0_PAD);
+	 printf("RTC: %s\n", rtc.get_time_str());
 
 	 float temp;
 	 float humid;
@@ -110,13 +131,16 @@ int main() {
 
    for (;;){
 
+	 printf("\n");
+	 printf("RTC: %s\n", rtc.get_time_str());
+
 	 sen.readTemp(&temp);
 	 sen.readHumid(&humid);
 	 sen.readPressure(&atmos);
 	 sen.readUV(&uv);
 	 sen.readLumi(&lumi);
 
-	  printf("%0.2f C, %0.2f%%, %dhPa, %0.5fmW/M2, %0.5flx\n",
+	  printf("SEN0500 \t%.2f C, %.2f%%, %dhPa, %.5fmW/M2, %0.5flx\n",
 			 temp,
 			 humid,
 			 atmos,
@@ -124,7 +148,7 @@ int main() {
 			lumi
 			 );
 
-	  printf("AHT10 Temp %fC Humidity %f\n",
+	  printf("AHT10   \t%.2fC,  %.2f\n",
 	  				myAHT10.AHT10_readTemperature(true),
 	  				myAHT10.AHT10_readHumidity(true));
 

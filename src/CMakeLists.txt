@@ -18,6 +18,7 @@ target_link_libraries(${NAME}
 	hardware_pwm
 	hardware_i2c
 	AHTXX
+	dormant
     )
 
 target_include_directories(${NAME} PRIVATE 

@@ -6,6 +6,7 @@ set(CMAKE_CXX_COMPILER_WORKS 1 CACHE INTERNAL "")
 set(NAME WeatherStation) # <-- Name your project/executable here!
 
 include(pico_sdk_import.cmake)
+include(pico_extras_import.cmake)
 
 # Gooey boilerplate
 project(${NAME} C CXX ASM)
@@ -16,6 +17,7 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 include(ahtxx_import.cmake)
+include(lib/RPIPicoDormantRTC/dormant.cmake)
 
 add_subdirectory(src)
 
