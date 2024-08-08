@@ -200,10 +200,12 @@ int main() {
 	   printf("\nSLEEP\n");
 	   snrCtr.off();
 	   rtcCtr.off();
+	   vane.stop();
 	   sleep_ms(5000);
 	   printf("WAKE\n");
 	   snrCtr.on();
 	   rtcCtr.on();
+	   vane.start();
 
 
    }
