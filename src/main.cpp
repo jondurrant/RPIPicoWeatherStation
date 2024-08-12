@@ -14,6 +14,7 @@
 #include "hardware/adc.h"
 #include <math.h>
 #include "Anemometer.h"
+#include "AnemometerPWM.h"
 #include "WindVane.h"
 #include "hardware/adc.h"
 
@@ -82,7 +83,9 @@ int main() {
 
 
 
-    Anemometer anem(ANEM_PAD);
+
+    //Anemometer anem(ANEM_PAD);
+    AnemometerPWM anem(ANEM_PAD);
     anem.start();
 
     adc_init();
@@ -109,7 +112,7 @@ int main() {
 	 rtc.set_power_gp(RTC_VCC);
 	 printf("RTC: %s\n", rtc.get_time_str());
 	 DeepSleep * deepSleep = DeepSleep::singleton();
-	 //deepSleep->setRTC(&rtc);
+	 deepSleep->setRTC(&rtc);
 
 	 float temp;
 	 float humid;
@@ -195,11 +198,13 @@ int main() {
 	   printf("\nLOW POWER\n");
 	   snrCtr.off();
 	   vane.stop();
+	   anem.stop();
 	   sleep_ms(5000);
 
 	   printf("\nSLEEP\n");
-	   //deepSleep->sleep(1, WAKE_PAD);
-	   deepSleep->sleepMin(1);
+	   uart_default_tx_wait_blocking();
+	   deepSleep->sleep(1, WAKE_PAD);
+	   //deepSleep->sleepMin(1);
 
 	   printf("WAKE\n");
 	   snrCtr.on();

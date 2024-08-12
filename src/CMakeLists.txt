@@ -2,6 +2,7 @@ add_executable(${NAME}
         main.cpp
         
         Anemometer.cpp
+        AnemometerPWM.cpp
         WindVane.cpp
         Rain.cpp
         Sen0500.cpp
