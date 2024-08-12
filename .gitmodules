@@ -4,3 +4,6 @@
 [submodule "lib/AHTXX_PICO"]
 	path = lib/AHTXX_PICO
 	url = https://github.com/gavinlyonsrepo/AHTXX_PICO
+[submodule "lib/RPIPicoWWSClient-RTOS"]
+	path = lib/RPIPicoWWSClient-RTOS
+	url = https://github.com/jondurrant/RPIPicoWWSClient-RTOS

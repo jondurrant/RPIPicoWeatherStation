@@ -23,6 +23,7 @@
 #include "ahtxx/ahtxx.hpp"
 
 #include "DS3231.hpp"
+#include "DeepSleep.h"
 #include "PowerCtr.h"
 
 #define I2CCHAN i2c1
@@ -37,7 +38,7 @@
 #define LED_PAD 8
 #define DELAY 500 // in microseconds
 
-#define WAKE_PAD 10
+#define WAKE_PAD 26
 
 #define ANEM_PAD 13
 #define DIRP_PAD 	   14
@@ -99,22 +100,16 @@ int main() {
     i2c_init(I2CCHAN, 100 * 1000);
 	gpio_set_function(SDA1_PAD, GPIO_FUNC_I2C);
 	gpio_set_function(SCL1_PAD, GPIO_FUNC_I2C);
-	//gpio_pull_up(SDA1_PAD);
-	//gpio_pull_up(SCL1_PAD);
 	snrCtr.pullUpI2C(SDA1_PAD, SCL1_PAD);
 	snrCtr.on();
 
 	 LIB_AHTXX myAHT10(AHT10_ADDRESS_0X38, I2CCHAN, SDA1_PAD,  SCL1_PAD, 100 * 1);
 
-
-	 PowerCtr rtcCtr(RTC_VCC);
-	 rtcCtr.pullUpI2C(SDA0_PAD, SCL0_PAD);
-	 rtcCtr.on();
-
-	 //gpio_pull_up(SDA0_PAD);
-	//gpio_pull_up(SCL0_PAD);
 	 DS3231 rtc(i2c0,  SDA0_PAD,  SCL0_PAD);
+	 rtc.set_power_gp(RTC_VCC);
 	 printf("RTC: %s\n", rtc.get_time_str());
+	 DeepSleep * deepSleep = DeepSleep::singleton();
+	 //deepSleep->setRTC(&rtc);
 
 	 float temp;
 	 float humid;
@@ -197,14 +192,17 @@ int main() {
 	   printf("\nWAIT\n");
 	   sleep_ms(5000);
 
-	   printf("\nSLEEP\n");
+	   printf("\nLOW POWER\n");
 	   snrCtr.off();
-	   rtcCtr.off();
 	   vane.stop();
 	   sleep_ms(5000);
+
+	   printf("\nSLEEP\n");
+	   //deepSleep->sleep(1, WAKE_PAD);
+	   deepSleep->sleepMin(1);
+
 	   printf("WAKE\n");
 	   snrCtr.on();
-	   rtcCtr.on();
 	   vane.start();
 
 

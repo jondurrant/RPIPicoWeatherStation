@@ -11,9 +11,9 @@
 #include "hardware/gpio.h"
 #include "hardware/pwm.h"
 
-#define FLASH_LED 2
+#define FLASH_LED 7
 #define RAIN_PAD 15
-#define WAKE_PAD 6
+#define WAKE_PAD 26
 
 
 static bool awake;
@@ -193,7 +193,7 @@ int main() {
         gpio_put(FLASH_LED, 0);
         extWake = false;
         //sleep here, in this case for 1 min
-        rtc_sleep(46,0);
+        rtc_sleep(-1, 10);
 
         gpio_put(FLASH_LED, 1);
 
