@@ -27,6 +27,26 @@
 #include "DeepSleep.h"
 #include "PowerCtr.h"
 
+#include "FreeRTOS.h"
+#include "task.h"
+#include <stdio.h>
+#include "wolfssl/ssl.h"
+
+#include "WifiHelper.h"
+#include "Request.h"
+
+#include "StatusAgent.h"
+
+//Check these definitions where added from the makefile
+#ifndef WIFI_SSID
+#error "WIFI_SSID not defined"
+#endif
+#ifndef WIFI_PASSWORD
+#error "WIFI_PASSWORD not defined"
+#endif
+
+#define TASK_PRIORITY     ( tskIDLE_PRIORITY + 1UL )
+
 #define I2CCHAN i2c1
 #define SDA1_PAD 18
 #define SCL1_PAD 19
@@ -36,7 +56,11 @@
 #define RTC_VCC 22
 
 
-#define LED_PAD 8
+#define SWT_PAD 6
+#define LED_PAD 7
+#define RED_PAD 7
+#define GRN_PAD 10
+#define BLU_PAD 11
 #define DELAY 500 // in microseconds
 
 #define WAKE_PAD 26
@@ -47,9 +71,61 @@
 
 #define SNR_CTR 12
 
-
-
 #define RAIN 15
+
+
+void runTimeStats(){
+  TaskStatus_t         * pxTaskStatusArray;
+  volatile UBaseType_t uxArraySize, x;
+  unsigned long        ulTotalRunTime;
+
+
+  /* Take a snapshot of the number of tasks in case it changes while this
+  function is executing. */
+  uxArraySize = uxTaskGetNumberOfTasks();
+  printf("Number of tasks %d\n", uxArraySize);
+
+  /* Allocate a TaskStatus_t structure for each task.  An array could be
+  allocated statically at compile time. */
+  pxTaskStatusArray = (TaskStatus_t*) pvPortMalloc(uxArraySize * sizeof(TaskStatus_t));
+
+  if (pxTaskStatusArray != NULL){
+    /* Generate raw status information about each task. */
+    uxArraySize = uxTaskGetSystemState(pxTaskStatusArray,
+                                       uxArraySize,
+                                       &ulTotalRunTime);
+
+
+
+    /* For each populated position in the pxTaskStatusArray array,
+    format the raw data as human readable ASCII data. */
+    for (x = 0; x < uxArraySize; x++){
+      printf("Task: %d \t cPri:%d \t bPri:%d \t hw:%d \t%s\n",
+             pxTaskStatusArray[x].xTaskNumber,
+             pxTaskStatusArray[x].uxCurrentPriority,
+             pxTaskStatusArray[x].uxBasePriority,
+             pxTaskStatusArray[x].usStackHighWaterMark,
+             pxTaskStatusArray[x].pcTaskName
+      );
+    }
+
+
+    /* The array is no longer needed, free the memory it consumes. */
+    vPortFree(pxTaskStatusArray);
+  } else{
+    printf("Failed to allocate space for stats\n");
+  }
+
+  HeapStats_t heapStats;
+  vPortGetHeapStats(&heapStats);
+  printf("HEAP avl: %d, blocks %d, alloc: %d, free: %d\n",
+         heapStats.xAvailableHeapSpaceInBytes,
+         heapStats.xNumberOfFreeBlocks,
+         heapStats.xNumberOfSuccessfulAllocations,
+         heapStats.xNumberOfSuccessfulFrees
+  );
+
+}
 
 
 void flash(uint count=1){
@@ -66,19 +142,27 @@ void flash(uint count=1){
 
 
 
-int main() {
+//int main() {
+void main_task(void* params){
 	uint resurrect = 0;
-    stdio_init_all();
-    sleep_ms(2000);
+//    stdio_init_all();
+//    sleep_ms(2000);
     printf("GO\n");
 
-    flash(3);
+    //flash(3);
 
     //Setup LED
-    const uint LED_PIN = LED_PAD;
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
+    //const uint LED_PIN = LED_PAD;
+    //gpio_init(LED_PIN);
+   // gpio_set_dir(LED_PIN, GPIO_OUT);
 
+    StatusAgent statusAgent(
+    		SWT_PAD,
+			RED_PAD,
+			GRN_PAD,
+			BLU_PAD);
+    statusAgent.start("Status", TASK_PRIORITY);
+    //statusAgent.setStatus(0x0012821A);
 
 
 
@@ -188,7 +272,7 @@ int main() {
 				   vane.getMinDeg(),
 				   vane.getMaxDeg()
 				   );
-		   flash(3);
+		  // flash(3);
 
 	   }
 
@@ -209,10 +293,34 @@ int main() {
 	   printf("WAKE\n");
 	   snrCtr.on();
 	   vane.start();
+	   anem.start();
 
 
    }
 
+}
 
 
+void vLaunch(void) {
+  TaskHandle_t task;
+
+  xTaskCreate(main_task, "MainThread", 5000*2, NULL, TASK_PRIORITY, &task);
+
+  /* Start the tasks and timer running. */
+  vTaskStartScheduler();
+}
+
+
+int main(void) {
+  stdio_init_all();
+  sleep_ms(2000);
+  printf("GO\n");
+
+  /* Configure the hardware ready to run the demo. */
+  const char* rtos_name;
+  rtos_name = "FreeRTOS";
+  printf("Starting %s on core 0:\n", rtos_name);
+  vLaunch();
+
+  return 0;
 }

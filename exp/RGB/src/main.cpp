@@ -5,8 +5,8 @@
 
 #define SWT 6
 #define RED 7
-#define GRN 8
-#define BLU 9
+#define GRN 10
+#define BLU 11
 
 uint8_t col = 0;
 uint32_t last = 0;
