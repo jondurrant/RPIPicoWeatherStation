@@ -14,6 +14,7 @@ add_executable(${NAME}
         
         Agent.cpp
         StatusAgent.cpp
+        DeepSleepRTOS.cpp
         
         )
 

@@ -24,12 +24,12 @@
 #include "ahtxx/ahtxx.hpp"
 
 #include "DS3231.hpp"
-#include "DeepSleep.h"
 #include "PowerCtr.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
 #include <stdio.h>
+#include "DeepSleepRTOS.h"
 #include "wolfssl/ssl.h"
 
 #include "WifiHelper.h"
@@ -195,7 +195,7 @@ void main_task(void* params){
 	 DS3231 rtc(i2c0,  SDA0_PAD,  SCL0_PAD);
 	 rtc.set_power_gp(RTC_VCC);
 	 printf("RTC: %s\n", rtc.get_time_str());
-	 DeepSleep * deepSleep = DeepSleep::singleton();
+	 DeepSleepRTOS * deepSleep = DeepSleepRTOS::singleton();
 	 deepSleep->setRTC(&rtc);
 
 	 float temp;
@@ -287,6 +287,7 @@ void main_task(void* params){
 
 	   printf("\nSLEEP\n");
 	   uart_default_tx_wait_blocking();
+	   //portSUPPRESS_TICKS_AND_SLEEP(1);
 	   deepSleep->sleep(1, WAKE_PAD);
 	   //deepSleep->sleepMin(1);
 
@@ -308,6 +309,9 @@ void vLaunch(void) {
 
   /* Start the tasks and timer running. */
   vTaskStartScheduler();
+
+  printf("SCHEDULED STOPPED\n");
+  sleep_ms(5000);
 }
 
 

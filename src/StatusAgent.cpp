@@ -23,6 +23,11 @@ StatusAgent::StatusAgent(
 	gpio_set_dir(xSWT, GPIO_IN);
 	gpio_pull_up(xSWT);
 
+	gpio_set_irq_enabled(
+			xSWT,
+		   GPIO_IRQ_EDGE_FALL,
+		   true);
+
 	gpio_init(xRED);
 	uint slicer = pwm_gpio_to_slice_num(xRED);
 	gpio_set_function(xRED, GPIO_FUNC_PWM);
