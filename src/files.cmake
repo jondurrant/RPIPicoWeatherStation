@@ -14,4 +14,12 @@ set(SRC_FILES
         ${CMAKE_CURRENT_LIST_DIR}/StatusAgent.cpp
         ${CMAKE_CURRENT_LIST_DIR}/DeepSleepRTOS.cpp
         ${CMAKE_CURRENT_LIST_DIR}/VoltMeter.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/PicoStatus.cpp
+        
+        "$ENV{PICO_EXAMPLES_PATH}/adc/read_vsys/power_status.c"
+)
+
+
+include_directories(AFTER
+		"$ENV{PICO_EXAMPLES_PATH}/adc/read_vsys/"
 )

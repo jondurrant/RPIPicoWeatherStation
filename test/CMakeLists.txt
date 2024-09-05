@@ -27,6 +27,7 @@ add_executable(${TEST_NAME}
     testCtr.cpp
     testAHT10.cpp
     testDS3231.cpp
+    testPico.cpp
     
     UtestPlatform.cpp
     
@@ -46,6 +47,8 @@ target_link_libraries(${TEST_NAME}
 	 hardware_i2c
 	 AHTXX
 	 dormant
+	 LWIP_PORT
+	 pico_cyw43_arch_lwip_sys_freertos
 )
 	
 target_include_directories(${TEST_NAME} PRIVATE

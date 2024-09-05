@@ -17,6 +17,9 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
+#include "pico/async_context_freertos.h"
+#include "pico/cyw43_arch.h"
+
 
 #define TASK_PRIORITY     ( tskIDLE_PRIORITY + 1UL )
 
@@ -78,9 +81,10 @@ void runTimeStats(){
 void main_task(void* params){
 
 	printf("Main task started\n");
+	cyw43_arch_init();
 
 	//Run Tests
-	const char *av[3] = {"test", "-g", "DS3231"};
+	const char *av[3] = {"test", "-g", "PicoStatus"};
 	const  int ac = 3;
 	int res = CommandLineTestRunner::RunAllTests(ac, av);
 
@@ -111,6 +115,9 @@ int main(void) {
   sleep_ms(2000);
   printf("GO\n");
   adc_init();
+
+  //async_context_freertos_t self;
+  //async_context_freertos_init_with_defaults (&self);
 
   /* Configure the hardware ready to run the demo. */
   const char* rtos_name;
