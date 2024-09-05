@@ -80,7 +80,7 @@ void main_task(void* params){
 	printf("Main task started\n");
 
 	//Run Tests
-	const char *av[3] = {"test", "-g", "Vane"};
+	const char *av[3] = {"test", "-g", "DS3231"};
 	const  int ac = 3;
 	int res = CommandLineTestRunner::RunAllTests(ac, av);
 

@@ -24,6 +24,9 @@ add_executable(${TEST_NAME}
     testRain.cpp
     testAnem.cpp
     testVane.cpp
+    testCtr.cpp
+    testAHT10.cpp
+    testDS3231.cpp
     
     UtestPlatform.cpp
     

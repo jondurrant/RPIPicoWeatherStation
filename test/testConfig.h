@@ -11,6 +11,15 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#define I2CCHAN i2c1
+#define SDA1_PAD 18
+#define SCL1_PAD 19
+
+#define SDA0_PAD 20
+#define SCL0_PAD 21
+#define RTC_VCC 22
+#define RTC_BAT 27
+
 #define SWT_PAD 6
 #define LED_PAD 7
 #define RED_PAD 7
