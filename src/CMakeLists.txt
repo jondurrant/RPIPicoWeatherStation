@@ -1,20 +1,9 @@
+
+include(files.cmake)
 add_executable(${NAME}
         main.cpp
         
-        Anemometer.cpp
-        AnemometerPWM.cpp
-        WindVane.cpp
-        Rain.cpp
-        Sen0500.cpp
-        
-        PowerCtr.cpp
-        
-        GPIOInputMgr.cpp
-        GPIOObserver.cpp
-        
-        Agent.cpp
-        StatusAgent.cpp
-        DeepSleepRTOS.cpp
+     	${SRC_FILES}
         
         )
 

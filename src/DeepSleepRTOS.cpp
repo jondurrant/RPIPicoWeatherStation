@@ -15,6 +15,7 @@
 #include "hardware/sync.h"
 #include "hardware/rtc.h"
 #include "pico/util/datetime.h"
+#include "pico/runtime_init.h"
 
 #include "FreeRTOS.h"
 

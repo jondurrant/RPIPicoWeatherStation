@@ -4,8 +4,10 @@ set(CMAKE_CXX_COMPILER_WORKS 1 CACHE INTERNAL "")
 
 # Change your executable name to something creative!
 set(NAME RGB) # <-- Name your project/executable here!
+set(PICO_BOARD pico)
+set(PICO_PLATFORM rp2040)
 
-include(pico_sdk_import.cmake)
+include("$ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake")
 
 # Gooey boilerplate
 project(${NAME} C CXX ASM)

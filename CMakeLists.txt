@@ -23,7 +23,8 @@ include(lwip_import.cmake)
 include(ahtxx_import.cmake)
 include(lib/RPIPicoDormantRTC/dormant.cmake)
 
-SET(FREERTOS_KERNEL_PATH "${CMAKE_CURRENT_LIST_DIR}/lib/RPIPicoWWSClient-RTOS/lib/FreeRTOS-Kernel" CACHE STRING "Course Common Lib")
+#SET(FREERTOS_KERNEL_PATH "${CMAKE_CURRENT_LIST_DIR}/lib/RPIPicoWWSClient-RTOS/lib/FreeRTOS-Kernel" CACHE STRING "Course Common Lib")
+SET(FREERTOS_KERNEL_PATH "$ENV{PICO_FREERTOS}" CACHE STRING "Course Common Lib")
 SET(FREERTOS_CONFIG_FILE_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/port/FreeRTOS-Kernel" CACHE STRING "Local Config")
 include(${CMAKE_CURRENT_LIST_DIR}/port/FreeRTOS-Kernel/freertos_config.cmake)
 include_directories("${FREERTOS_CONFIG_FILE_DIRECTORY}") 
@@ -50,6 +51,7 @@ include("PicoW_WSClient.cmake")
 
 
 add_subdirectory(src)
+add_subdirectory(test EXCLUDE_FROM_ALL)
 
 #Set up files for the release packages
 install(CODE "execute_process(COMMAND $ENV{HOME}/bin/picoDeploy.sh ${CMAKE_CURRENT_BINARY_DIR}/src/${NAME}.elf)")
