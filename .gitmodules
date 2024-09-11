@@ -7,3 +7,9 @@
 [submodule "lib/RPIPicoWWSClient-RTOS"]
 	path = lib/RPIPicoWWSClient-RTOS
 	url = https://github.com/jondurrant/RPIPicoWWSClient-RTOS
+[submodule "lib/Lab-Project-FreeRTOS-FAT"]
+	path = lib/Lab-Project-FreeRTOS-FAT
+	url = https://github.com/FreeRTOS/Lab-Project-FreeRTOS-FAT
+[submodule "lib/FreeRTOS-FAT-CLI-for-RPi-Pico"]
+	path = lib/FreeRTOS-FAT-CLI-for-RPi-Pico
+	url = https://github.com/carlk3/FreeRTOS-FAT-CLI-for-RPi-Pico

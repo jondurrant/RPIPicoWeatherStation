@@ -28,6 +28,8 @@ add_executable(${TEST_NAME}
     testAHT10.cpp
     testDS3231.cpp
     testPico.cpp
+    testSDLog.cpp
+    testSen500.cpp
     
     UtestPlatform.cpp
     
@@ -49,6 +51,8 @@ target_link_libraries(${TEST_NAME}
 	 dormant
 	 LWIP_PORT
 	 pico_cyw43_arch_lwip_sys_freertos
+	 
+	 FreeRTOS_FAT
 )
 	
 target_include_directories(${TEST_NAME} PRIVATE
