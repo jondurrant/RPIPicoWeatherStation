@@ -274,16 +274,18 @@ void main_task(void* params){
 				   );
 		  // flash(3);
 
+		   vTaskDelay(5000);
+
 	   }
 
 	   printf("\nWAIT\n");
-	   sleep_ms(5000);
+	   vTaskDelay(5000);
 
 	   printf("\nLOW POWER\n");
 	   snrCtr.off();
 	   vane.stop();
 	   anem.stop();
-	   sleep_ms(5000);
+	   vTaskDelay(5000);
 
 	   printf("\nSLEEP\n");
 	   uart_default_tx_wait_blocking();

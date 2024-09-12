@@ -30,6 +30,7 @@ add_executable(${TEST_NAME}
     testPico.cpp
     testSDLog.cpp
     testSen500.cpp
+    testPayload.cpp
     
     UtestPlatform.cpp
     
@@ -53,6 +54,14 @@ target_link_libraries(${TEST_NAME}
 	 pico_cyw43_arch_lwip_sys_freertos
 	 
 	 FreeRTOS_FAT
+	 
+	 coreHTTP
+     urilib
+     json_maker
+     tiny_json
+     wolfssl
+     picow_wsclient
+	 
 )
 	
 target_include_directories(${TEST_NAME} PRIVATE

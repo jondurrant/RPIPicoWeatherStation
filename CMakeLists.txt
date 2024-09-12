@@ -49,6 +49,7 @@ include("wolfssl_import.cmake")
 set(PICOW_WSCLIENT_PATH "${CMAKE_CURRENT_LIST_DIR}/lib/RPIPicoWWSClient-RTOS" CACHE STRING "Course Common Lib")
 include("PicoW_WSClient.cmake")
 
+include(FreeRTOS-FAT.cmake)
 
 add_subdirectory(src)
 add_subdirectory(test EXCLUDE_FROM_ALL)

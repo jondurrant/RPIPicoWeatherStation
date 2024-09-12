@@ -8,7 +8,9 @@
 #ifndef SRC_PICOSTATUS_H_
 #define SRC_PICOSTATUS_H_
 
-class PicoStatus {
+#include "PayloadPart.h"
+
+class PicoStatus : public PayloadPart{
 public:
 	PicoStatus();
 	virtual ~PicoStatus();
@@ -17,6 +19,8 @@ public:
 	bool isVBUS();
 	float vsysVolts();
 	float tempCelcius();
+
+	virtual char* writeJson( char* dest, const char * name, size_t* remLen );
 
 };
 

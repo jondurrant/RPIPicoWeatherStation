@@ -7,6 +7,8 @@
 
 #include "PicoStatus.h"
 #include "hardware/adc.h"
+#include "json-maker/json-maker.h"
+#include "pico/unique_id.h"
 
 extern "C" {
 #include <power_status.h>
@@ -28,6 +30,7 @@ bool PicoStatus::isVSYS(){
 	 if (power_source(&vsys) == PICO_OK) {
 		 return vsys;
 	 }
+	 return false;
 }
 
 bool PicoStatus::isVBUS(){
@@ -47,4 +50,24 @@ float PicoStatus::tempCelcius(){
 	float v = (float)adc_read() * conversion_factor;
 	float temp = 27.0 - ((v - 0.706)/0.001721);
 	return temp;
+}
+
+
+char* PicoStatus::writeJson( char* dest, const char * name, size_t* remLen ){
+	char * p = dest;
+	char picoId[2 * PICO_UNIQUE_BOARD_ID_SIZE_BYTES + 1];
+	pico_get_unique_board_id_string (picoId,  2 * PICO_UNIQUE_BOARD_ID_SIZE_BYTES + 1);
+
+	p = json_objOpen( p, name, remLen );
+	p = json_str(p, "id", picoId, remLen);
+	if (isVBUS()){
+		p = json_str(p, "source", "VBUS", remLen );
+	} else {
+		p = json_str(p, "source", "VSYS", remLen );
+	}
+	p = json_double(p,  "volts",  vsysVolts(), remLen );
+	p = json_double(p,  "celcius",  tempCelcius(), remLen );
+
+	p = json_objClose( p, remLen );
+	return p;
 }

@@ -15,6 +15,11 @@ set(SRC_FILES
         ${CMAKE_CURRENT_LIST_DIR}/DeepSleepRTOS.cpp
         ${CMAKE_CURRENT_LIST_DIR}/VoltMeter.cpp
         ${CMAKE_CURRENT_LIST_DIR}/PicoStatus.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/SDLog.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/hw_config.c
+        
+        ${CMAKE_CURRENT_LIST_DIR}/WeatherStationPayload.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/PayloadPart.cpp
         
         "$ENV{PICO_EXAMPLES_PATH}/adc/read_vsys/power_status.c"
 )

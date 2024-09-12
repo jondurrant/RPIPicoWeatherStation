@@ -26,6 +26,8 @@ target_link_libraries(${NAME}
     tiny_json
     wolfssl
     picow_wsclient
+    
+    FreeRTOS_FAT
 	)
 
 target_include_directories(${NAME} PRIVATE 
@@ -52,7 +54,7 @@ pico_add_extra_outputs(${NAME})
 
 pico_enable_stdio_uart(${NAME} 1)
 target_compile_definitions(${NAME} PRIVATE
-    PICO_DEFAULT_UART_RX_PIN=16
-    PICO_DEFAULT_UART_TX_PIN=17
+    PICO_DEFAULT_UART_RX_PIN=17
+    PICO_DEFAULT_UART_TX_PIN=16
 )
 
