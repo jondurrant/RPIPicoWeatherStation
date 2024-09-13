@@ -17,6 +17,7 @@
    #include "CppUTest/MemoryLeakDetectorNewMacros.h"
 #endif
 #include "PayloadPart.h"
+#include <string>
 
 #ifndef WS_PAYLOAD_LEN
 #define WS_PAYLOAD_LEN 1024

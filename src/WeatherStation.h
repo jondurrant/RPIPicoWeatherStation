@@ -1,0 +1,51 @@
+/*
+ * WeatherStation.h
+ *
+ *  Created on: 13 Sept 2024
+ *      Author: jondurrant
+ */
+
+#ifndef SRC_WEATHERSTATION_H_
+#define SRC_WEATHERSTATION_H_
+
+#include "pico/stdlib.h"
+
+#include "config.h"
+
+
+#include "AnemometerPWM.h"
+#include "WindVane.h"
+#include "Rain.h"
+#include "hardware/i2c.h"
+#include "Sen0500.h"
+#include "ahtxx/ahtxx.hpp"
+#include "PicoStatus.h"
+#include "PowerCtr.h"
+#include "DS3231.hpp"
+
+
+class WeatherStation {
+public:
+	WeatherStation();
+	virtual ~WeatherStation();
+
+	void init();
+
+	void start();
+	void stop();
+	void reset();
+	void sample();
+	void submit();
+
+private:
+	AnemometerPWM 	*pAnem;
+	WindVane 					*pVane;
+	Rain 								*pRain;
+
+	PowerCtr 						*pSnrCtr;
+	LIB_AHTXX 				*pAHT10;
+	Sen0500 						*pSen0500;
+	DS3231							*pRtc;
+};
+
+#endif /* SRC_WEATHERSTATION_H_ */

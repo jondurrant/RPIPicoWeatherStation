@@ -8,6 +8,8 @@
 #ifndef SRC_PAYLOADPART_H_
 #define SRC_PAYLOADPART_H_
 
+#include "pico/stdlib.h"
+
 class PayloadPart {
 public:
 	PayloadPart();

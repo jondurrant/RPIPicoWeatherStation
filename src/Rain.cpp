@@ -9,6 +9,7 @@
 #include "hardware/gpio.h"
 #include "hardware/pwm.h"
 #include <cstdio>
+#include "json-maker/json-maker.h"
 
 Rain::Rain(uint8_t gp) {
 	xGP = gp;
@@ -30,6 +31,7 @@ Rain::Rain(uint8_t gp) {
 	   gpio_set_function(xGP, GPIO_FUNC_PWM);
 	   pwm_set_enabled(xSlicer, true);
 	}
+	 reset();
 }
 
 Rain::~Rain() {
@@ -44,7 +46,76 @@ float Rain::mmRain(){
 	return RAIN_MM_PER_PUSLSE * (float)pulseCount();
 }
 
+float Rain::maxMMPS(){
+	return xMaxMMPS;
+}
+
+float Rain::minMMPS(){
+	return xMinMMPS;
+}
+
+float Rain::periodMM(){
+	return xPeriodMM;
+}
+
 void Rain::reset(){
 	pwm_set_counter	(xSlicer, 0);
+	xPeriodMM = 0.0;
+	xMaxMMPS = 0.0;
+	xMinMMPS = 0.0;
+	xSampleMS = to_ms_since_boot (get_absolute_time () );
+	xSampleCount = 0;
+	xMSSinceCount = 0;
+}
+void Rain::start(){
+	xPeriodMM = 0.0;
+	xStartCount = pulseCount();
+}
+void Rain::stop(){
+	xPeriodMM = (float)(pulseCount() - xStartCount ) * RAIN_MM_PER_PUSLSE;
+}
+
+void Rain::sample(){
+	uint count =  pulseCount();
+	uint32_t now =  to_ms_since_boot (get_absolute_time () );
+	uint inc = count - xSampleCount;
+	float sec = (float)(now - xSampleMS) / 1000.0;
+	float mmps = ((float)inc * RAIN_MM_PER_PUSLSE) / sec;
+
+	if (mmps > xMaxMMPS){
+		xMaxMMPS = mmps;
+	}
+
+	if ((xMinMMPS != 0.0) && (mmps != 0.0)) {
+		if (mmps < xMinMMPS){
+			xMinMMPS = mmps;
+		}
+	}
+
+	if (inc != 0){
+		xMSSinceCount = 0;
+	} else {
+		xMSSinceCount += (now - xSampleMS);
+	}
+	xSampleCount = count;
+	xSampleMS = now;
+}
+
+
+char* Rain::writeJson( char* dest,const  char * name, size_t* remLen ) {
+	char * p = dest;
+
+	p = json_objOpen( p, name, remLen );
+	p = json_double(p,  "cumlative_mm",  mmRain(), remLen );
+	p = json_double(p,  "max_mmps",  maxMMPS(), remLen );
+	p = json_double(p,  "min_mmps",  minMMPS(), remLen );
+	p = json_double(p,  "period_mm",  periodMM(), remLen );
+	p = json_double(p,  "since_sec",  secSinceRain(), remLen );
+	p = json_objClose( p, remLen );
+	return p;
+}
+
+float Rain::secSinceRain(){
+	return (float)xMSSinceCount / 1000.0;
 }
 
