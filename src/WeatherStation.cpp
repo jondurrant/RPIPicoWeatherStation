@@ -6,6 +6,7 @@
  */
 
 #include "WeatherStation.h"
+#include "WeatherStationPayload.h"
 
 WeatherStation::WeatherStation() {
 }
@@ -57,7 +58,10 @@ void WeatherStation::sample(){
 }
 
 void WeatherStation::submit(){
+	WeatherStationPayload payload;
+	payload.addPart("rain", pRain);
 
+	printf("%s\n", payload.json());
 }
 
 void WeatherStation::reset(){

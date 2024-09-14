@@ -26,7 +26,7 @@ target_link_libraries(${NAME}
     tiny_json
     wolfssl
     picow_wsclient
-    
+    pico_lwip_sntp
     FreeRTOS_FAT
 	)
 

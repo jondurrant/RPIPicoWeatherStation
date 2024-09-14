@@ -82,6 +82,10 @@ void Rain::sample(){
 	float sec = (float)(now - xSampleMS) / 1000.0;
 	float mmps = ((float)inc * RAIN_MM_PER_PUSLSE) / sec;
 
+	if (sec == 0.0){
+		mmps = 0.0;
+	}
+
 	if (mmps > xMaxMMPS){
 		xMaxMMPS = mmps;
 	}

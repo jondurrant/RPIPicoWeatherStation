@@ -36,6 +36,7 @@
 #include "Request.h"
 
 #include "StatusAgent.h"
+#include "WeatherStation.h"
 
 //Check these definitions where added from the makefile
 #ifndef WIFI_SSID
@@ -143,7 +144,7 @@ void flash(uint count=1){
 
 
 //int main() {
-void main_task(void* params){
+void old_main_task(void* params){
 	uint resurrect = 0;
 //    stdio_init_all();
 //    sleep_ms(2000);
@@ -300,6 +301,89 @@ void main_task(void* params){
 
 
    }
+
+}
+
+void debugCB(const int logLevel, const char *const logMessage){
+	printf("WOLFSSL DEBUG(%d): %s\n", logLevel, logMessage);
+}
+
+bool wifiFirst = true;
+bool wifiOn(){
+	if (WifiHelper::init()){
+		printf("Wifi Controller Initialised\n");
+	} else {
+		printf("Failed to initialise controller\n");
+
+		return false;
+	}
+
+	if (wifiFirst){
+		WifiHelper::sntpAddServer("0.uk.pool.ntp.org");
+		WifiHelper::sntpAddServer("1.uk.pool.ntp.org");
+		WifiHelper::sntpAddServer("2.uk.pool.ntp.org");
+		WifiHelper::sntpAddServer("3.uk.pool.ntp.org");
+		wifiFirst = false;
+	}
+	WifiHelper::sntpStartSync();
+
+	printf("Connecting to WiFi... %s \n", WIFI_SSID);
+
+	//if (WifiHelper::join(WIFI_SSID, WIFI_PASSWORD)){
+	if (WifiHelper::join(WIFI_SSID, WIFI_PASSWORD)){
+		printf("Connect to Wifi\n");
+	}
+	else {
+		printf("Failed to connect to Wifi \n");
+		return false;
+	}
+
+
+	//Print MAC Address
+	char macStr[20];
+	WifiHelper::getMACAddressStr(macStr);
+	printf("MAC ADDRESS: %s\n", macStr);
+
+	//Print IP Address
+	char ipStr[20];
+	WifiHelper::getIPAddressStr(ipStr);
+	printf("IP ADDRESS: %s\n", ipStr);
+
+	return true;
+}
+
+bool wifiOff(){
+	return WifiHelper::deInit();
+}
+
+void main_task(void* params){
+	printf("Main Task Started\n");
+
+	wolfSSL_Init();
+	wolfSSL_SetLoggingCb( debugCB);
+	//wolfSSL_Debugging_ON();
+
+	WeatherStation station;
+	station.init();
+
+
+
+	for(;;){
+		station.start();
+		bool on = wifiOn();
+		vTaskDelay(2000);
+		for (int i=0; i < 10; i ++){
+			station.sample();
+		}
+		station.stop();
+
+		if (on){
+			station.submit();
+		}
+		wifiOff();
+
+		vTaskDelay(1000);
+	}
 
 }
 

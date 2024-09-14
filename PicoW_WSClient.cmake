@@ -32,6 +32,7 @@ target_link_libraries(picow_wsclient PUBLIC
     urilib
     wolfssl
     json_maker
+    hardware_rtc
     )
 
 
