@@ -9,6 +9,7 @@
 #include "hardware/gpio.h"
 #include "hardware/pwm.h"
 #include <cstdio>
+#include "json-maker/json-maker.h"
 
 AnemometerPWM::AnemometerPWM(uint8_t gp)  {
 	xGP = gp;
@@ -63,6 +64,7 @@ double AnemometerPWM::pulsesPerSec(){
 
 	uint32_t ms = end - xStartTimestamp;
 	uint32_t count = pwm_get_counter(xSlicer);
+	//printf("Count %d\n", count);
 	double pps =  (double)count / ((double) ms /1000.0);
 
 	if (xStopTimestamp == 0){
@@ -73,12 +75,14 @@ double AnemometerPWM::pulsesPerSec(){
 
 
 		double sample =  ((double)newCount / ((double) ms /1000.0)) * ANENOMETER_KMPH ;
+		/*
 		printf("Updating Stats %f = (%d /  (%d / 1000.0) * %f\n",
 				sample,
 				newCount ,
 				ms,
 				ANENOMETER_KMPH
 				);
+				*/
 		if (sample > xMaxKmph){
 			xMaxKmph = sample;
 		}
@@ -103,5 +107,39 @@ double AnemometerPWM::maxKmph(){
 }
 
 double AnemometerPWM::gustKmph(){
-	return xMaxKmph;
+	return xGustKmph;
+}
+
+
+void AnemometerPWM::reset(){
+	pwm_set_counter	(xSlicer, 0);
+	xStartTimestamp = 0;
+	xStopTimestamp = 0;
+
+	xSampleCount = 0;;
+	xSampleTimestamp = 0;
+
+	xMinKmph = 0.0;
+	xMaxKmph = 0.0;
+	xGustKmph = 0.0;
+}
+
+void AnemometerPWM::sample(){
+	double kmph = pulsesPerSec() * ANENOMETER_KMPH;
+	if (kmph > xGustKmph){
+		xGustKmph = kmph;
+	}
+}
+
+
+char* AnemometerPWM::writeJson( char* dest,const  char * name, size_t* remLen ) {
+	char * p = dest;
+
+	p = json_objOpen( p, name, remLen );
+	p = json_double(p,  "kmph",  kmph(), remLen );
+	p = json_double(p,  "max_kmph",  maxKmph(), remLen );
+	p = json_double(p,  "min_kmph",  minKmph(), remLen );
+	p = json_double(p,  "gust_kmph",  gustKmph(), remLen );
+	p = json_objClose( p, remLen );
+	return p;
 }

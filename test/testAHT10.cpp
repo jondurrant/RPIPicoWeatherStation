@@ -11,11 +11,34 @@
 #include "testConfig.h"
 #include <cstdio>
 #include "ahtxx/ahtxx.hpp"
+#include "AHT10Status.h"
 
 
 TEST_GROUP(AHT10Grp){
 
 };
+
+
+
+
+TEST(AHT10Grp, TestStatus){
+	PowerCtr snrCtr(SNR_CTR);
+
+	 i2c_init(I2CCHAN, 100 * 1000);
+	gpio_set_function(SDA1_PAD, GPIO_FUNC_I2C);
+	gpio_set_function(SCL1_PAD, GPIO_FUNC_I2C);
+	snrCtr.pullUpI2C(SDA1_PAD, SCL1_PAD);
+	snrCtr.on();
+
+	AHT10Status myAHT10(AHT10_ADDRESS_0X38, I2CCHAN, SDA1_PAD,  SCL1_PAD, 100 * 1);
+
+	myAHT10.start();
+
+	printf("AHT10 Status   \t%.2fC,  %.2f\n",
+								myAHT10.AHT10_readTemperature(true),
+								myAHT10.AHT10_readHumidity(true));
+}
+
 
 TEST(AHT10Grp, Test){
 	PowerCtr snrCtr(SNR_CTR);

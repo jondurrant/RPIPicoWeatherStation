@@ -21,6 +21,7 @@ set(SRC_FILES
         ${CMAKE_CURRENT_LIST_DIR}/WeatherStationPayload.cpp
         ${CMAKE_CURRENT_LIST_DIR}/PayloadPart.cpp
         ${CMAKE_CURRENT_LIST_DIR}/WeatherStation.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/AHT10Status.cpp
         
         "$ENV{PICO_EXAMPLES_PATH}/adc/read_vsys/power_status.c"
 )

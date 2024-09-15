@@ -10,17 +10,20 @@
 
 #include "pico/stdlib.h"
 
+#include "PayloadPart.h"
+
 
 #define ANENOMETER_KMPH 2.7
 
-class AnemometerPWM {
+class AnemometerPWM : public PayloadPart{
 public:
 	AnemometerPWM(uint8_t gp);
 	virtual ~AnemometerPWM();
 
 	void start();
-
 	void stop();
+	void reset();
+	void sample();
 
 	double pulsesPerSec();
 
@@ -29,6 +32,8 @@ public:
 	double minKmph();
 	double maxKmph();
 	double gustKmph();
+
+	virtual char* writeJson( char* dest,const  char * name, size_t* remLen ) ;
 
 private:
 	uint8_t xGP = 0xFF;
@@ -43,6 +48,7 @@ private:
 
 	double xMinKmph = 0.0;
 	double xMaxKmph = 0.0;
+	double xGustKmph = 0.0;
 };
 
 #endif /* SRC_ANEMOMETERPWM_H_ */

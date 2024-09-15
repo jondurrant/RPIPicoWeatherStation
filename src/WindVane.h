@@ -9,8 +9,9 @@
 #define SRC_SRC_WINDVANE_H_
 
 #include "pico/stdlib.h"
+#include "PayloadPart.h"
 
-class WindVane {
+class WindVane : public PayloadPart{
 public:
 	WindVane(uint8_t adcGP, uint8_t pwrGP);
 	virtual ~WindVane();
@@ -19,13 +20,15 @@ public:
 
 	void start();
 	void stop();
-
+	void reset();
 	void sample();
 
 
 	double getDegrees();
 	double getMinDeg();
 	double getMaxDeg();
+
+	virtual char* writeJson( char* dest,const  char * name, size_t* remLen ) ;
 
 private:
 	uint8_t xAdcGP = 0;

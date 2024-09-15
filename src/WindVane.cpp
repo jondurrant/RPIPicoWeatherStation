@@ -8,6 +8,7 @@
 #include "WindVane.h"
 #include "hardware/adc.h"
 #include <math.h>
+#include "json-maker/json-maker.h"
 
 float WindVane::XdegRes[16][2] = {
 		{0,33000},
@@ -132,3 +133,27 @@ double WindVane::getMinDeg(){
 double WindVane::getMaxDeg(){
 	return xMax;
 }
+
+void WindVane::reset(){
+	xOffset = 0.0;
+	xDeg = 0.0;
+	xMin = -1.0;
+	xMax = 0.0;
+	xActive = false;
+	xFirst = false;
+}
+
+char* WindVane::writeJson( char* dest,const  char * name, size_t* remLen ) {
+	char * p = dest;
+
+	p = json_objOpen( p, name, remLen );
+	p = json_double(p,  "degrees",  getDegrees(), remLen );
+	p = json_double(p,  "max_degrees",  getMaxDeg(), remLen );
+	p = json_double(p,  "min_degrees",  getMinDeg(), remLen );
+	p = json_objClose( p, remLen );
+	return p;
+}
+
+
+
+

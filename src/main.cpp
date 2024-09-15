@@ -371,8 +371,9 @@ void main_task(void* params){
 	for(;;){
 		station.start();
 		bool on = wifiOn();
-		vTaskDelay(2000);
+
 		for (int i=0; i < 10; i ++){
+			vTaskDelay(2000);
 			station.sample();
 		}
 		station.stop();
@@ -382,7 +383,7 @@ void main_task(void* params){
 		}
 		wifiOff();
 
-		vTaskDelay(1000);
+		vTaskDelay(10000);
 	}
 
 }
