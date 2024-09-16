@@ -17,7 +17,8 @@
 #include "WindVane.h"
 #include "Rain.h"
 #include "hardware/i2c.h"
-#include "Sen0500.h"
+//#include "Sen0500.h"
+#include "Sen0500Status.h"
 //#include "ahtxx/ahtxx.hpp"
 #include "AHT10Status.h"
 #include "PicoStatus.h"
@@ -47,7 +48,8 @@ private:
 	PowerCtr 						*pSnrCtr;
 	//LIB_AHTXX 				*pAHT10;
 	AHT10Status				*pAHT10;
-	Sen0500 						*pSen0500;
+	//Sen0500 						*pSen0500;
+	Sen0500Status 			*pSen0500;
 	RTCStatus					*pRTC;
 
 	PicoStatus					*pPico;
