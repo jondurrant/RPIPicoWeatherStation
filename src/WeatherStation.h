@@ -18,11 +18,12 @@
 #include "Rain.h"
 #include "hardware/i2c.h"
 #include "Sen0500.h"
-#include "ahtxx/ahtxx.hpp"
+//#include "ahtxx/ahtxx.hpp"
 #include "AHT10Status.h"
 #include "PicoStatus.h"
 #include "PowerCtr.h"
-#include "DS3231.hpp"
+//#include "DS3231.hpp"
+#include "RTCStatus.h"
 
 
 class WeatherStation {
@@ -47,7 +48,7 @@ private:
 	//LIB_AHTXX 				*pAHT10;
 	AHT10Status				*pAHT10;
 	Sen0500 						*pSen0500;
-	DS3231							*pRtc;
+	RTCStatus					*pRTC;
 
 	PicoStatus					*pPico;
 

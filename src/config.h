@@ -15,7 +15,7 @@
 #define SDA0_PAD 20
 #define SCL0_PAD 21
 #define RTC_VCC 22
-
+#define RTC_BAT 27
 
 #define SWT_PAD 6
 #define LED_PAD 7

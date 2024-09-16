@@ -6,12 +6,18 @@
  */
 
 #include "AHT10Status.h"
+
 #include "json-maker/json-maker.h"
 #include <cstdio>
 #include "FreeRTOS.h"
 #include "task.h"
 
-AHT10Status::AHT10Status(uint8_t address, i2c_inst_t* i2c_type, uint8_t sdata , uint8_t sclk ,uint16_t clockspeed):
+AHT10Status::AHT10Status(
+		uint8_t address,
+		i2c_inst_t* i2c_type,
+		uint8_t sdata ,
+		uint8_t sclk ,
+		uint16_t clockspeed):
 		LIB_AHTXX( address, i2c_type,  sdata ,  sclk , clockspeed){
 	// NOP
 }
@@ -27,7 +33,7 @@ void AHT10Status::start(){
 		  if (AHT10_begin()) {
 			  xError = false;
 
-			  printf("OK: Cel=%.2f\n", AHT10_readTemperature(true));
+			  //printf("OK: Cel=%.2f\n", AHT10_readTemperature(true));
 			  return;
 		  }
 		 printf("AHT10 not connect r fail load calib coeff \r\n");

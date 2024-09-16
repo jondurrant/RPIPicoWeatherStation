@@ -32,7 +32,7 @@ void WeatherStation::init(){
 					SCL1_PAD,
 					100 * 1);
 		pSen0500 	= new Sen0500(I2CCHAN);
-		pRtc 				= new DS3231(i2c0,  SDA0_PAD,  SCL0_PAD);
+		pRTC 				= new RTCStatus(i2c0,  SDA0_PAD,  SCL0_PAD, RTC_BAT);
 
 		pPico 				= new PicoStatus();
 
@@ -49,7 +49,7 @@ WeatherStation::~WeatherStation() {
 	delete pSnrCtr;
 	delete pAHT10;
 	delete pSen0500;
-	delete pRtc ;
+	delete pRTC ;
 	delete pPico;
 }
 
@@ -59,6 +59,7 @@ void WeatherStation::start(){
 	pRain->start();
 	pAnem->start();
 	pAHT10->start();
+	pRTC->start();
 
 }
 
@@ -68,6 +69,8 @@ void WeatherStation::stop(){
 	pAnem->stop();
 	pAHT10->stop();
 	pSnrCtr->off();
+
+	pRTC->stop();
 }
 
 void WeatherStation::sample(){
@@ -75,6 +78,7 @@ void WeatherStation::sample(){
 	pVane->sample();
 	pAnem->sample();
 	pAHT10->sample();
+	pRTC->sample();
 }
 
 void WeatherStation::submit(){
@@ -84,6 +88,7 @@ void WeatherStation::submit(){
 	payload.addPart("vain", pVane);
 	payload.addPart("anem", pAnem);
 	payload.addPart("AHT10", pAHT10);
+	payload.addPart("RTC", pRTC);
 	printf("%s\n", payload.json());
 }
 
