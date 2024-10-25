@@ -84,7 +84,7 @@ void main_task(void* params){
 	cyw43_arch_init();
 
 	//Run Tests
-	const char *av[3] = {"test", "-g", "DS3231"};
+	const char *av[3] = {"test", "-g", "Sen0500Grp"};
 	const  int ac = 3;
 	int res = CommandLineTestRunner::RunAllTests(ac, av);
 

@@ -38,19 +38,27 @@ TEST(Sen0500Grp, Test){
 	 float uv;
 	 float lumi;
 
-	 sen.readTemp(&temp);
-	 sen.readHumid(&humid);
-	 sen.readPressure(&atmos);
-	 sen.readUV(&uv);
-	 sen.readLumi(&lumi);
 
-	  printf("SEN0500 \t%.2f C, %.2f%%, %dhPa, %.5fmW/M2, %0.5flx\n",
-			 temp,
-			 humid,
-			 atmos,
-			 uv,
-			lumi
-			 );
+	 for (int i=0; i < 10; i++){
+
+		 sen.readTemp(&temp);
+		 sen.readHumid(&humid);
+		 sen.readPressure(&atmos);
+		 sen.readUV(&uv);
+		 sen.readLumi(&lumi);
+
+
+
+		  printf("SEN0500 \t%.2f C, %.2f%%, %dhPa, %.5fmW/M2, %0.5flx\n",
+				 temp,
+				 humid,
+				 atmos,
+				 uv,
+				lumi
+				 );
+
+		  vTaskDelay(2000);
+	 }
 }
 
 

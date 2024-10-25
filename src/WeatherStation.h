@@ -40,6 +40,8 @@ public:
 	void sample();
 	void submit();
 
+	RTCStatus * getRTC();
+
 private:
 	AnemometerPWM 	*pAnem;
 	WindVane 					*pVane;

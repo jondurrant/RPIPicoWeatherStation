@@ -367,6 +367,7 @@ void main_task(void* params){
 	station.init();
 
 
+	DeepSleepRTOS::singleton()->setRTC(station.getRTC());
 
 	for(;;){
 		station.start();
@@ -383,7 +384,13 @@ void main_task(void* params){
 		}
 		wifiOff();
 
-		vTaskDelay(10000);
+		printf("Going to sleep\n");
+		vTaskDelay(1000);
+		DeepSleepRTOS::singleton()->sleep(1,  WAKE_PAD);
+		printf("Awake\n");
+
+		//vTaskDelay(10000);
+		vTaskDelay(1000);
 	}
 
 }

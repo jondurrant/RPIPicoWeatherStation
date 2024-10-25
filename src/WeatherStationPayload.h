@@ -20,7 +20,7 @@
 #include <string>
 
 #ifndef WS_PAYLOAD_LEN
-#define WS_PAYLOAD_LEN 1024
+#define WS_PAYLOAD_LEN 2048
 #endif
 
 class WeatherStationPayload  :

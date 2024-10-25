@@ -102,3 +102,7 @@ void WeatherStation::reset(){
 	pRain->reset();
 	pAHT10->reset();
 }
+
+RTCStatus * WeatherStation::getRTC(){
+	return pRTC;
+}
