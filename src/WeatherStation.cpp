@@ -8,6 +8,7 @@
 #include "WeatherStation.h"
 #include "WeatherStationPayload.h"
 #include "hardware/adc.h"
+#include "Request.h"
 
 WeatherStation::WeatherStation() {
 }
@@ -61,6 +62,7 @@ void WeatherStation::start(){
 	pAHT10->start();
 	pRTC->start();
 	pSen0500->start();
+	pPico->start();
 
 }
 
@@ -73,6 +75,7 @@ void WeatherStation::stop(){
 	pSnrCtr->off();
 
 	pRTC->stop();
+	pPico->stop();
 }
 
 void WeatherStation::sample(){
@@ -82,6 +85,7 @@ void WeatherStation::sample(){
 	pAHT10->sample();
 	pRTC->sample();
 	pSen0500->sample();
+	pPico->sample();
 }
 
 void WeatherStation::submit(){
@@ -94,6 +98,9 @@ void WeatherStation::submit(){
 	payload.addPart("rtc", pRTC);
 	payload.addPart("sen0500", pSen0500);
 	printf("%s\n", payload.json());
+
+	Request req(xHttpBuffer, WEATHER_STATION_HTTP_BUF);
+	req.postJSON(WEATHER_STATION_SUBMIT_URL, &payload);
 }
 
 void WeatherStation::reset(){
@@ -101,6 +108,7 @@ void WeatherStation::reset(){
 	pVane->reset();
 	pRain->reset();
 	pAHT10->reset();
+	pPico->reset();
 }
 
 RTCStatus * WeatherStation::getRTC(){

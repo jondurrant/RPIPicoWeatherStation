@@ -366,6 +366,13 @@ void main_task(void* params){
 	WeatherStation station;
 	station.init();
 
+    StatusAgent statusAgent(
+    		SWT_PAD,
+			RED_PAD,
+			GRN_PAD,
+			BLU_PAD);
+    statusAgent.start("Status", TASK_PRIORITY);
+    statusAgent.setStatus(0xFF0000);
 
 	DeepSleepRTOS::singleton()->setRTC(station.getRTC());
 

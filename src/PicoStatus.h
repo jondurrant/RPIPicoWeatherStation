@@ -20,7 +20,25 @@ public:
 	float vsysVolts();
 	float tempCelcius();
 
+	void start();
+	void stop();
+	void reset();
+	void sample();
+
 	virtual char* writeJson( char* dest, const char * name, size_t* remLen );
+
+private:
+	uint xVBUSSec 					= 0;
+	uint xVSYSSec 					= 0;
+	uint32_t xLastSample 	= 0;
+
+	float xVolts;
+	float xMaxVolts;
+	float xMinVolts;
+
+	float xCelcius;
+	float xMaxCelcius;
+	float xMinCelcius;
 
 };
 

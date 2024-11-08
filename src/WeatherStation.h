@@ -26,6 +26,13 @@
 //#include "DS3231.hpp"
 #include "RTCStatus.h"
 
+#ifndef WEATHER_STATION_HTTP_BUF
+#define WEATHER_STATION_HTTP_BUF 4096
+#endif
+
+#ifndef WEATHER_STATION_SUBMIT_URL
+#define WEATHER_STATION_SUBMIT_URL "http://vmu22a.local.jondurrant.com:5000/json"
+#endif
 
 class WeatherStation {
 public:
@@ -55,6 +62,8 @@ private:
 	RTCStatus					*pRTC;
 
 	PicoStatus					*pPico;
+
+	char 								xHttpBuffer[WEATHER_STATION_HTTP_BUF];
 
 };
 
