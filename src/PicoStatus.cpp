@@ -104,7 +104,30 @@ void PicoStatus::sample(){
 	xLastSample = now;
 }
 
-
+//Format should look like
+/*
+ *  "pico": {
+            "id": "Test1",
+            "source": "VBUS",
+            "charge_volts": {
+                "current": 4.42068,
+                "min": 4.63096,
+                "max": 4.68896
+                },
+            "bat_volts": {
+                "current": 4.42068,
+                "min": 4.63096,
+                "max": 4.68896
+                },
+            "celcius": {
+                "current": 23.8615,
+                "min": 24.7978,
+                "max": 25.8095
+                },
+            "vbus_sec": 106.0,
+            "vsys_sec": 30.0
+            },
+ */
 char* PicoStatus::writeJson( char* dest, const char * name, size_t* remLen ){
 	char * p = dest;
 	char picoId[2 * PICO_UNIQUE_BOARD_ID_SIZE_BYTES + 1];
@@ -114,16 +137,30 @@ char* PicoStatus::writeJson( char* dest, const char * name, size_t* remLen ){
 	p = json_str(p, "id", picoId, remLen);
 	if (isVBUS()){
 		p = json_str(p, "source", "VBUS", remLen );
+
+		//charge_volts
+		p = json_objOpen( p, "charge_volts", remLen );
+			p = json_double(p,  "current", xVolts, remLen );
+			p = json_double(p,  "min", xMinVolts, remLen );
+			p = json_double(p,  "max", xMaxVolts, remLen );
+		p = json_objClose( p, remLen );
 	} else {
 		p = json_str(p, "source", "VSYS", remLen );
-	}
-	p = json_double(p,  "volts", xVolts, remLen );
-	p = json_double(p,  "min_volts", xMinVolts, remLen );
-	p = json_double(p,  "max_volts", xMaxVolts, remLen );
 
-	p = json_double(p,  "celcius",  xCelcius, remLen );
-	p = json_double(p,  "min_celcius",  xMinCelcius, remLen );
-	p = json_double(p,  "max_celcius",  xMaxCelcius, remLen );
+		//bat_volts
+		p = json_objOpen( p, "bat_volts", remLen );
+			p = json_double(p,  "current", xVolts, remLen );
+			p = json_double(p,  "min", xMinVolts, remLen );
+			p = json_double(p,  "max", xMaxVolts, remLen );
+		p = json_objClose( p, remLen );
+	}
+
+	//Temp
+	p = json_objOpen( p, "celcius", remLen );
+		p = json_double(p,  "current",  xCelcius, remLen );
+		p = json_double(p,  "min",  xMinCelcius, remLen );
+		p = json_double(p,  "max",  xMaxCelcius, remLen );
+	p = json_objClose( p, remLen );
 
 	p = json_double(p,  "vbus_sec",  xVBUSSec, remLen );
 	p = json_double(p,  "vsys_sec",  xVSYSSec, remLen );

@@ -10,9 +10,12 @@
 #include "hardware/rtc.h"
 #include "pico/stdlib.h"
 #include "pico/util/datetime.h"
+#include "FreeRTOS.h"
+#include "Task.h"
 
-WeatherStationPayload::WeatherStationPayload() {
+WeatherStationPayload::WeatherStationPayload(RTCStatus * rtc) {
 	addPart("header", this);
+	pRTC = rtc;
 
 }
 
@@ -42,14 +45,23 @@ char* WeatherStationPayload::writeJson( char* dest, const char * name, size_t* r
 	char *p = dest;
 	datetime_t t;
 
+	t.year = 0;
+	t.month=0;
+	t.day=0;
+	t.hour=0;
+	t.min = 0;
+	t.sec = 0;
+
+
 	if (!rtc_get_datetime(&t)){
-		t.year = 0;
-		t.month=0;
-		t.day=0;
-		t.hour=0;
-		t.min = 0;
-		t.sec = 0;
+		t.year = pRTC->get_year();
+		t.month=pRTC->get_mon();
+		t.day=pRTC->get_day();
+		t.hour=pRTC->get_hou();
+		t.min = pRTC->get_min();
+		t.sec = pRTC->get_sec();
 	}
+
 	p = json_objOpen( p, name, remLen );
 	p = json_str(p, "type", "WeatherStationPayload", remLen );
 	p = json_uint(p, "version",  1, remLen );

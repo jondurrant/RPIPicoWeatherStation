@@ -131,15 +131,25 @@ void AnemometerPWM::sample(){
 	}
 }
 
-
+/*
+ *  "anem": {
+            "kmph": {
+                "current": 0.0,
+                "max": 0.0,
+                "min": 0.0
+                },
+            }
+ */
 char* AnemometerPWM::writeJson( char* dest,const  char * name, size_t* remLen ) {
 	char * p = dest;
 
 	p = json_objOpen( p, name, remLen );
-	p = json_double(p,  "kmph",  kmph(), remLen );
-	p = json_double(p,  "max_kmph",  maxKmph(), remLen );
-	p = json_double(p,  "min_kmph",  minKmph(), remLen );
-	p = json_double(p,  "gust_kmph",  gustKmph(), remLen );
+	p = json_objOpen( p, "kmph", remLen );
+		p = json_double(p,  "current",  kmph(), remLen );
+		p = json_double(p,  "max",  maxKmph(), remLen );
+		p = json_double(p,  "min",  minKmph(), remLen );
+		p = json_double(p,  "gust_kmph",  gustKmph(), remLen );
+	p = json_objClose( p, remLen );
 	p = json_objClose( p, remLen );
 	return p;
 }

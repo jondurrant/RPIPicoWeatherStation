@@ -24,6 +24,7 @@ public:
 	float mmRain();
 	float maxMMPS();
 	float minMMPS();
+	float mmps();
 	float periodMM();
 	float secSinceRain();
 
@@ -42,6 +43,7 @@ private:
 
 	float xMaxMMPS;
 	float xMinMMPS;
+	float xMMPS;
 	float xPeriodMM;
 	uint xStartCount;
 	uint xSampleCount;

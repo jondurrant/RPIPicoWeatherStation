@@ -198,6 +198,7 @@
 	(net 53 "unconnected-(J6-Pin_3-Pad3)")
 	(net 54 "unconnected-(J6-Pin_2-Pad2)")
 	(net 55 "unconnected-(J6-Pin_4-Pad4)")
+	(net 56 "Net-(U2-BAT)")
 	(footprint "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm"
 		(layer "F.Cu")
 		(uuid "03894ad8-6f0d-4523-840c-e4b053dedbef")
@@ -268,7 +269,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/c58ea9a8-eb76-457c-b888-1be017ced537")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.621 -0.92)
@@ -479,7 +480,7 @@
 		)
 		(path "/e545a816-fee0-498d-902a-b9d6b320e007")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -12.5348 -5.3016)
@@ -831,7 +832,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 38 "/RTC_BAT")
+			(net 56 "Net-(U2-BAT)")
 			(pinfunction "BAT")
 			(pintype "output")
 			(uuid "6b1ae6b4-348c-4a35-ab31-e49737f2c8e3")
@@ -998,7 +999,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/14dae750-f5a1-4110-91de-429b91186e37")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 14.03)
@@ -1311,7 +1312,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/aea22dfb-b0c5-4492-802d-6b95bcdcbe0e")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.62 0.92)
@@ -1548,7 +1549,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/f1e97850-78dd-468f-af35-10c24ff73df8")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.62 0.92)
@@ -1782,7 +1783,7 @@
 		)
 		(path "/bbea1fea-f08a-4f59-b206-bf7c818a9941")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.25 1.5)
@@ -2142,7 +2143,7 @@
 		(property ki_fp_filters "TO?92*")
 		(path "/0a6836ec-71ab-4ba8-933e-6ae93052fa21")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.53 1.85)
@@ -2375,7 +2376,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/f13d4c8f-d453-442f-8962-fc0c1f58aa42")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -2653,7 +2654,7 @@
 		(property ki_fp_filters "TO?92*")
 		(path "/dc338345-df7a-486c-a781-53e572aac772")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.53 1.85)
@@ -2886,7 +2887,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/8883cdd6-d51f-4349-8580-e7dad30d0aab")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.33 1.27)
@@ -3352,7 +3353,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/e7e84a55-fb92-46be-8918-d861aa036adf")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.85 -2.75)
@@ -3840,7 +3841,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/4a7568b1-17db-462a-9c45-8b93f17c2cc0")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -4128,7 +4129,7 @@
 		(property ki_fp_filters "*RJ11-6*")
 		(path "/b29dd82e-82f2-48bd-9a24-0b6d0c0ce321")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
 			(start 6.858 5.207)
@@ -4361,7 +4362,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/88641891-6532-4afb-a41d-a77e63bc6f47")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -4639,7 +4640,7 @@
 		)
 		(path "/2b6ef5ef-33ec-42af-8201-b73bdb21c477")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.25 1.5)
@@ -4999,7 +5000,7 @@
 		(property ki_fp_filters "TO?92*")
 		(path "/59f9c97b-0678-4af8-8d05-c719b36409d8")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.53 1.85)
@@ -5227,7 +5228,7 @@
 		)
 		(path "/bef607b4-ed65-4789-a56a-4e255ea50dca")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -10.5 -25.5)
@@ -7422,7 +7423,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/bc4c112c-dee0-49ab-a33f-930caaf22367")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 14.03)
@@ -7733,7 +7734,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/d3368b24-7830-42a9-9aa3-0b3f61db8522")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.62 -0.92)
@@ -7969,7 +7970,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/672f0504-17c0-45f0-95ae-abb53e259447")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -8247,7 +8248,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/88ad9ac4-9f91-4327-a435-66bcd443b6f1")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -8712,7 +8713,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/62d89092-9a49-4a7d-858e-3f662c04cf76")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.62 0.92)
@@ -8948,7 +8949,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/1a9ea78a-fa61-4130-bbdd-e7e07fe25d67")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 14.03)
@@ -9189,6 +9190,282 @@
 			)
 		)
 	)
+	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+		(layer "F.Cu")
+		(uuid "84b14c93-e07c-488a-99c4-31a2b2976e31")
+		(at 177.58 108.5)
+		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
+		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
+		(property "Reference" "R9"
+			(at 13.01 -0.22 0)
+			(layer "F.SilkS")
+			(uuid "d190a64f-a1ed-404d-ae5d-8d28621459aa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "23GR"
+			(at 5.08 2.37 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f885c943-78e3-4fe3-a6c5-fbf36940e447")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "10123399-d0c2-4fa8-aaa5-3229cd484e48")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "11e1edd8-aec8-4314-8a45-c303b8e2655a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8ba9c847-4bbb-49ed-8255-7e1cb9ba5c3b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "R_*")
+		(path "/5887b09a-4f17-4be7-81f8-1e191968e9ae")
+		(sheetname "Root")
+		(sheetfile "WeatherStationPCB.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start 1.04 0)
+			(end 1.81 0)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "5d22c11d-53aa-4705-91cc-14c14ce1ba0c")
+		)
+		(fp_line
+			(start 1.81 -1.37)
+			(end 1.81 1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "895b5ab3-becb-406a-b6d4-eda4f467ba49")
+		)
+		(fp_line
+			(start 1.81 1.37)
+			(end 8.35 1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "c9734ebc-68b5-4bb1-b726-a40663bb0577")
+		)
+		(fp_line
+			(start 8.35 -1.37)
+			(end 1.81 -1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "2eae8d8c-6338-407b-8a82-ec7b8864fd02")
+		)
+		(fp_line
+			(start 8.35 1.37)
+			(end 8.35 -1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "d06f2560-b2ef-4a64-b1d8-57a1d181b9c3")
+		)
+		(fp_line
+			(start 9.12 0)
+			(end 8.35 0)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "59c162f1-379e-4a58-96f7-ed62f326223a")
+		)
+		(fp_line
+			(start -1.05 -1.5)
+			(end -1.05 1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "f5479d29-fc7a-4dd3-aafd-e7086507bbbc")
+		)
+		(fp_line
+			(start -1.05 1.5)
+			(end 11.21 1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "36de7cb6-e62f-444c-87dd-9977b2b1400b")
+		)
+		(fp_line
+			(start 11.21 -1.5)
+			(end -1.05 -1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "ed72cadb-3767-49a7-910f-689dfffc3fb6")
+		)
+		(fp_line
+			(start 11.21 1.5)
+			(end 11.21 -1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "32adb1ae-75f7-4549-8057-83bbb7c9bba8")
+		)
+		(fp_line
+			(start 0 0)
+			(end 1.93 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b995c73a-be2c-468d-bc0f-cf5c7708ab27")
+		)
+		(fp_line
+			(start 1.93 -1.25)
+			(end 1.93 1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "524b6fcc-584c-4caa-a600-4c88c54c4a22")
+		)
+		(fp_line
+			(start 1.93 1.25)
+			(end 8.23 1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "f7b22ca9-5184-4286-8db5-bfc7099dfd4c")
+		)
+		(fp_line
+			(start 8.23 -1.25)
+			(end 1.93 -1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b53458d9-a615-4db7-b02d-f43b119aa5dc")
+		)
+		(fp_line
+			(start 8.23 1.25)
+			(end 8.23 -1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "dd2d93c7-c454-4508-81ec-317d3552aa91")
+		)
+		(fp_line
+			(start 10.16 0)
+			(end 8.23 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "411b3b28-2d13-4973-9ece-9102b25d72eb")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 5.08 0 0)
+			(layer "F.Fab")
+			(uuid "017f9945-574d-48da-8a2d-f7e30c0192c1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(pad "1" thru_hole circle
+			(at 0 0)
+			(size 1.6 1.6)
+			(drill 0.8)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 11 "GND")
+			(pintype "passive")
+			(uuid "4b9e957d-2dec-4a0e-87de-f767aae79629")
+		)
+		(pad "2" thru_hole oval
+			(at 10.16 0)
+			(size 1.6 1.6)
+			(drill 0.8)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 38 "/RTC_BAT")
+			(pintype "passive")
+			(uuid "721ff7ea-1b19-4247-9dec-b28a36d0e054")
+		)
+		(model "${KICAD8_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm"
 		(layer "F.Cu")
 		(uuid "a1ade460-b27d-445d-be55-201e2661ad94")
@@ -9259,7 +9536,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/26c20e7c-c9d2-4912-9702-c73a868f7c7f")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.621 -0.92)
@@ -9474,7 +9751,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/251f0737-a791-4de8-b5a1-2986fae3b216")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.655 -1.545)
@@ -9750,7 +10027,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/a8633f72-ecc1-4d2e-b27c-b65037d3b7ca")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.85 -2.75)
@@ -10238,7 +10515,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/7aca0f11-5efb-4319-a6df-f88894cadd0d")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -10.09 11.49)
@@ -11048,7 +11325,7 @@
 		(property ki_fp_filters "*RJ11-6*")
 		(path "/20aa123d-098b-4a36-8f02-42fde42526e2")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
 			(start 6.858 5.207)
@@ -11279,7 +11556,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/21b7d4b0-637a-44ec-8ed4-116c453c7fe2")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.62 0.92)
@@ -11514,7 +11791,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/ace4c5ec-e507-4550-b12a-5f11ef86bd2a")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.62 0.92)
@@ -11750,7 +12027,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/4faac4c3-4fde-4e30-9ecf-baf3afbfbfbd")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.85 -2.75)
@@ -12238,7 +12515,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/07edb89e-cec6-4fc9-bf88-a5fdfd228b6b")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.85 -2.75)
@@ -12727,7 +13004,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/43badd9b-df4d-4146-9db1-d720137df4c0")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 14.03)
@@ -12968,6 +13245,282 @@
 			)
 		)
 	)
+	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+		(layer "F.Cu")
+		(uuid "e08bdbdf-2f55-428a-a61e-6684b21c7860")
+		(at 187.8 111.96 180)
+		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
+		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
+		(property "Reference" "R8"
+			(at -2.84 0.05 360)
+			(layer "F.SilkS")
+			(uuid "9eaf357c-c843-4217-b4d1-2f0cc91ceb4c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Value" "23GR"
+			(at 5.08 2.37 360)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8884fda3-afb1-4c88-ab4a-fb726cc463a4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6f5be287-2328-43e0-b3d8-38d375ae1fa2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7e31c975-a417-47b5-9599-e8631e06fe24")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d56c293b-ae6c-4417-a287-6cf7230036ae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "R_*")
+		(path "/3e75aa56-8e17-4dcf-a360-94170d20b975")
+		(sheetname "Root")
+		(sheetfile "WeatherStationPCB.kicad_sch")
+		(attr through_hole)
+		(fp_line
+			(start 9.12 0)
+			(end 8.35 0)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "4671e29a-d217-4891-830c-d2d3682bffe7")
+		)
+		(fp_line
+			(start 8.35 1.37)
+			(end 8.35 -1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "f13dea35-e0d3-43ee-9dc5-633e8c2f71f1")
+		)
+		(fp_line
+			(start 8.35 -1.37)
+			(end 1.81 -1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "10f7545b-3b31-4763-ba3c-e8205903ef81")
+		)
+		(fp_line
+			(start 1.81 1.37)
+			(end 8.35 1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "a6d902ed-ded2-4bf4-bbbd-3f185a1e1d01")
+		)
+		(fp_line
+			(start 1.81 -1.37)
+			(end 1.81 1.37)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "7d7f2082-ee4e-40b9-9716-189690697bc7")
+		)
+		(fp_line
+			(start 1.04 0)
+			(end 1.81 0)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "4bfca010-b237-463b-b25c-ae808637d4b8")
+		)
+		(fp_line
+			(start 11.21 1.5)
+			(end 11.21 -1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "9c8cc6ec-6480-48fd-9b38-5005a89cb54b")
+		)
+		(fp_line
+			(start 11.21 -1.5)
+			(end -1.05 -1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "a6d96439-604c-4ddc-82b2-681988415b11")
+		)
+		(fp_line
+			(start -1.05 1.5)
+			(end 11.21 1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "46e58432-39ba-42a1-8c13-00aec94bfe6c")
+		)
+		(fp_line
+			(start -1.05 -1.5)
+			(end -1.05 1.5)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "17a10240-e570-42f1-a102-288114bc974a")
+		)
+		(fp_line
+			(start 10.16 0)
+			(end 8.23 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "d320a810-8938-4475-b4fb-177f0fe8b161")
+		)
+		(fp_line
+			(start 8.23 1.25)
+			(end 8.23 -1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "15ff979c-3028-4d17-89ed-d3657ba1c2fd")
+		)
+		(fp_line
+			(start 8.23 -1.25)
+			(end 1.93 -1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b49b8f1e-f7f7-43a8-bbe8-0cc202b5361f")
+		)
+		(fp_line
+			(start 1.93 1.25)
+			(end 8.23 1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "22867e91-4f42-4492-a685-55d7d5596b60")
+		)
+		(fp_line
+			(start 1.93 -1.25)
+			(end 1.93 1.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "6d19fac2-6182-4c50-819c-6820516e3005")
+		)
+		(fp_line
+			(start 0 0)
+			(end 1.93 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "06f7fc1e-ce33-44b0-ba07-89f1df6c7162")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 5.08 0 360)
+			(layer "F.Fab")
+			(uuid "7605b027-22b7-4fa4-8c3d-e1370a45a3df")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(pad "1" thru_hole circle
+			(at 0 0 180)
+			(size 1.6 1.6)
+			(drill 0.8)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 38 "/RTC_BAT")
+			(pintype "passive")
+			(uuid "d69b488c-6fc5-494c-8ec6-5f4c26e71d68")
+		)
+		(pad "2" thru_hole oval
+			(at 10.16 0 180)
+			(size 1.6 1.6)
+			(drill 0.8)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net 56 "Net-(U2-BAT)")
+			(pintype "passive")
+			(uuid "8d4e7348-ff8c-4a58-9e78-c339c43344a7")
+		)
+		(model "${KICAD8_3DMODEL_DIR}/Resistor_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.wrl"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
 		(layer "F.Cu")
 		(uuid "e46d5ca9-d523-4e2a-b3bd-4760424d2d38")
@@ -13038,7 +13591,7 @@
 		(property ki_fp_filters "CP_*")
 		(path "/b4dc3efc-982f-4a1b-9f8a-6396ba482854")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 7.581 -0.599)
@@ -15127,7 +15680,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/dfa98d8c-e6b9-4112-aa75-b326f76b3632")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -10.09 14.03)
@@ -16000,7 +16553,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/ddc8505b-1823-49cb-939d-9a4cfbdac6dd")
 		(sheetname "Root")
-		(sheetfile "Weather Station 1.kicad_sch")
+		(sheetfile "WeatherStationPCB.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 0.62 0.92)
@@ -16848,6 +17401,14 @@
 		(uuid "50cd6e18-b3ec-4130-a8ba-064bf3b50ad0")
 	)
 	(segment
+		(start 177.58 108.5)
+		(end 178.705 107.375)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 11)
+		(uuid "539d8ad6-a304-432e-9be2-0fbb403f6842")
+	)
+	(segment
 		(start 192.532 47.752)
 		(end 192.604 47.824)
 		(width 0.25)
@@ -17000,12 +17561,28 @@
 		(uuid "99880a9f-2984-429d-89a8-bbfb30599c27")
 	)
 	(segment
+		(start 179.495 107.375)
+		(end 180.15 106.72)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 11)
+		(uuid "a367c30a-ee5b-4597-953e-b1296696a103")
+	)
+	(segment
 		(start 187.96 67.798)
 		(end 187.94 67.818)
 		(width 0.25)
 		(layer "B.Cu")
 		(net 11)
 		(uuid "a6dff7bd-e2b8-4ce4-b5eb-c7dfeb9e2847")
+	)
+	(segment
+		(start 178.705 107.375)
+		(end 179.495 107.375)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 11)
+		(uuid "a77c68bd-f96f-47da-9506-48e92995f928")
 	)
 	(segment
 		(start 187.071 63.373)
@@ -17110,6 +17687,14 @@
 		(layer "B.Cu")
 		(net 11)
 		(uuid "c9dbc638-80b3-424c-8c96-c52afc990825")
+	)
+	(segment
+		(start 194.35 106.72)
+		(end 195.58 107.95)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 11)
+		(uuid "cd102ea8-dfe7-454b-9402-9ef586a3d349")
 	)
 	(segment
 		(start 158.989 83.753)
@@ -17230,6 +17815,14 @@
 		(layer "B.Cu")
 		(net 11)
 		(uuid "f559a080-2228-4e6f-8405-7cceb36e0852")
+	)
+	(segment
+		(start 180.15 106.72)
+		(end 194.35 106.72)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 11)
+		(uuid "f6fe6c48-85e5-4fcb-bab5-4aff1425ae74")
 	)
 	(segment
 		(start 184.782 90.808)
@@ -18779,20 +19372,36 @@
 		(uuid "d4ebbcf7-8ca8-4ba9-ad01-79ec937f86f5")
 	)
 	(segment
-		(start 172.764 107.28)
-		(end 164.462 98.978)
+		(start 172.448 100.018)
+		(end 180.93 108.5)
 		(width 0.25)
 		(layer "F.Cu")
 		(net 38)
-		(uuid "70762ddd-019a-4ab2-be34-5c83711942b7")
+		(uuid "10d7b70e-0cdd-492c-ac08-af62c1beda9b")
 	)
 	(segment
-		(start 172.764 107.7904)
-		(end 172.764 107.28)
+		(start 180.93 108.5)
+		(end 187.74 108.5)
 		(width 0.25)
 		(layer "F.Cu")
 		(net 38)
-		(uuid "ecc24fe1-d933-47ce-889d-4e19ebc46df3")
+		(uuid "4aaf8548-4df7-4b7a-84f6-8f08538cb39f")
+	)
+	(segment
+		(start 165.502 100.018)
+		(end 172.448 100.018)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "84901841-8232-4dc0-bc0d-bfed537786c5")
+	)
+	(segment
+		(start 164.462 98.978)
+		(end 165.502 100.018)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 38)
+		(uuid "e87fc5f0-4bbf-48d4-9d2f-28d07d23bd8a")
 	)
 	(segment
 		(start 158.081 98.993)
@@ -18803,12 +19412,28 @@
 		(uuid "3c3f6cf1-2edf-4b48-a5b1-33533ac18c07")
 	)
 	(segment
+		(start 187.8 108.56)
+		(end 187.74 108.5)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 38)
+		(uuid "808feb25-7e15-40a1-aa50-9c654592a1f7")
+	)
+	(segment
 		(start 164.447 98.993)
 		(end 164.462 98.978)
 		(width 0.25)
 		(layer "B.Cu")
 		(net 38)
 		(uuid "a7711614-fb1c-47a0-9fdf-4473420e69f4")
+	)
+	(segment
+		(start 187.8 111.96)
+		(end 187.8 108.56)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 38)
+		(uuid "e665b7af-f5aa-4465-80eb-6b62d27fd98a")
 	)
 	(segment
 		(start 195.326 97.536)
@@ -19449,6 +20074,30 @@
 		(layer "B.Cu")
 		(net 52)
 		(uuid "9ce698d4-2c8a-4b86-b57d-2f6d3659d70b")
+	)
+	(segment
+		(start 172.764 107.7904)
+		(end 172.764 107.28)
+		(width 0.25)
+		(layer "F.Cu")
+		(net 56)
+		(uuid "ecc24fe1-d933-47ce-889d-4e19ebc46df3")
+	)
+	(segment
+		(start 173.4704 107.7904)
+		(end 177.64 111.96)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 56)
+		(uuid "30dc779f-398d-4f7e-a06b-92420997ee5e")
+	)
+	(segment
+		(start 172.764 107.7904)
+		(end 173.4704 107.7904)
+		(width 0.25)
+		(layer "B.Cu")
+		(net 56)
+		(uuid "47ed6882-4cde-4e9e-882f-6f9659337e45")
 	)
 	(group ""
 		(uuid "1ee39bf1-49c2-4f59-be0b-88f646917e1d")

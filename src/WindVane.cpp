@@ -147,9 +147,9 @@ char* WindVane::writeJson( char* dest,const  char * name, size_t* remLen ) {
 	char * p = dest;
 
 	p = json_objOpen( p, name, remLen );
-	p = json_double(p,  "degrees",  getDegrees(), remLen );
-	p = json_double(p,  "max_degrees",  getMaxDeg(), remLen );
-	p = json_double(p,  "min_degrees",  getMinDeg(), remLen );
+	p = json_double(p,  "current",  getDegrees(), remLen );
+	p = json_double(p,  "max",  getMaxDeg(), remLen );
+	p = json_double(p,  "min",  getMinDeg(), remLen );
 	p = json_objClose( p, remLen );
 	return p;
 }

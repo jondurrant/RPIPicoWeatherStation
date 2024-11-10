@@ -10,6 +10,7 @@
 
 VoltMeter::VoltMeter(uint8_t gp) {
 	xGp = gp;
+	adc_gpio_init(xGp);
 
 }
 

@@ -54,6 +54,10 @@ float Rain::minMMPS(){
 	return xMinMMPS;
 }
 
+float Rain::mmps(){
+	return xMMPS;
+}
+
 float Rain::periodMM(){
 	return xPeriodMM;
 }
@@ -63,6 +67,7 @@ void Rain::reset(){
 	xPeriodMM = 0.0;
 	xMaxMMPS = 0.0;
 	xMinMMPS = 0.0;
+	xMMPS = 0.0;
 	xSampleMS = to_ms_since_boot (get_absolute_time () );
 	xSampleCount = 0;
 	xMSSinceCount = 0;
@@ -96,6 +101,8 @@ void Rain::sample(){
 		}
 	}
 
+	xMMPS = mmps;
+
 	if (inc != 0){
 		xMSSinceCount = 0;
 	} else {
@@ -110,9 +117,14 @@ char* Rain::writeJson( char* dest,const  char * name, size_t* remLen ) {
 	char * p = dest;
 
 	p = json_objOpen( p, name, remLen );
+
+	p = json_objOpen( p, "mmps", remLen );
+		p = json_double(p,  "current",  mmps(), remLen );
+		p = json_double(p,  "max",  maxMMPS(), remLen );
+		p = json_double(p,  "min",  minMMPS(), remLen );
+	p = json_objClose( p, remLen );
+
 	p = json_double(p,  "cumlative_mm",  mmRain(), remLen );
-	p = json_double(p,  "max_mmps",  maxMMPS(), remLen );
-	p = json_double(p,  "min_mmps",  minMMPS(), remLen );
 	p = json_double(p,  "period_mm",  periodMM(), remLen );
 	p = json_double(p,  "since_sec",  secSinceRain(), remLen );
 	p = json_objClose( p, remLen );

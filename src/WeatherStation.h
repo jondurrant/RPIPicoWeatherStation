@@ -31,7 +31,7 @@
 #endif
 
 #ifndef WEATHER_STATION_SUBMIT_URL
-#define WEATHER_STATION_SUBMIT_URL "http://vmu22a.local.jondurrant.com:5000/json"
+#define WEATHER_STATION_SUBMIT_URL "http://vmu22a.local.jondurrant.com:5080/sampleSubmit"
 #endif
 
 class WeatherStation {

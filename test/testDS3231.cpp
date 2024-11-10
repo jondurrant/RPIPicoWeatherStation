@@ -31,7 +31,12 @@ TEST(DS3231Grp, Test){
 
 TEST(DS3231Grp, BattVolt){
 	VoltMeter volts(RTC_BAT);
-	printf("RTC Batt %f V\n", volts.volts());
+	double d =  volts.volts();
+
+	//printf("RTC Batt %f V\n", d);
+	//Adjust as using two 33GOhm resistors as divider
+	d = d * ( 3.2/0.55);
+	printf("RTC Batt %f V\n", d);
 }
 
 

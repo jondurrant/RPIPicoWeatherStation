@@ -82,6 +82,23 @@ void AHT10Status::sample(){
 
 }
 
+
+/*
+ * Target format
+ * "aht10": {
+            "error": False,
+            "celcius": {
+                "current": 19.7811,
+                "max": 19.8552,
+                "min": 19.7775
+                },
+            "humidity": {
+                "current": 67.9592,
+                "max": 68.5895,
+                "min": 67.5763
+                }
+            },
+ */
 char* AHT10Status::writeJson( char* dest,const  char * name, size_t* remLen ) {
 	char * p = dest;
 
@@ -92,12 +109,19 @@ char* AHT10Status::writeJson( char* dest,const  char * name, size_t* remLen ) {
 
 	p = json_objOpen( p, name, remLen );
 	p = json_bool(p,  "error",  xError, remLen );
-	p = json_double(p,  "celcius",  xCel, remLen );
-	p = json_double(p,  "max_celcius",  xMaxCel, remLen );
-	p = json_double(p,  "min_celcius",  xMinCel, remLen );
-	p = json_double(p,  "humidity",  xHum, remLen );
-	p = json_double(p,  "max_humidity",  xMaxHum, remLen );
-	p = json_double(p,  "min_humidity",  xMinHum, remLen );
+
+	p = json_objOpen( p, "celcius", remLen );
+		p = json_double(p,  "current",  xCel, remLen );
+		p = json_double(p,  "max",  xMaxCel, remLen );
+		p = json_double(p,  "min",  xMinCel, remLen );
+	p = json_objClose( p, remLen );
+
+	p = json_objOpen( p, "humidity", remLen );
+		p = json_double(p,  "current",  xHum, remLen );
+		p = json_double(p,  "max",  xMaxHum, remLen );
+		p = json_double(p,  "min",  xMinHum, remLen );
+	p = json_objClose( p, remLen );
+
 	p = json_objClose( p, remLen );
 	return p;
 }

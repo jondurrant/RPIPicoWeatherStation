@@ -89,7 +89,7 @@ void WeatherStation::sample(){
 }
 
 void WeatherStation::submit(){
-	WeatherStationPayload payload;
+	WeatherStationPayload payload(getRTC());
 	payload.addPart("pico", pPico);
 	payload.addPart("rain", pRain);
 	payload.addPart("vain", pVane);

@@ -18,6 +18,7 @@
 #endif
 #include "PayloadPart.h"
 #include <string>
+#include "RTCStatus.h"
 
 #ifndef WS_PAYLOAD_LEN
 #define WS_PAYLOAD_LEN 2048
@@ -27,7 +28,7 @@ class WeatherStationPayload  :
 		public JSONSerialisable,
 		public PayloadPart {
 public:
-	WeatherStationPayload();
+	WeatherStationPayload(RTCStatus * rtc);
 	virtual ~WeatherStationPayload();
 
 	virtual char * json();
@@ -40,6 +41,8 @@ private:
 	char xBuffer[WS_PAYLOAD_LEN];
 
 	std::map<std::string,  PayloadPart *> xPayloadParts;
+
+	RTCStatus *  pRTC;
 
 };
 

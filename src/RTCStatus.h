@@ -24,10 +24,20 @@ public:
 	void reset();
 	void sample();
 
+	double batVolts();
+
 	virtual char* writeJson( char* dest,const  char * name, size_t* remLen ) ;
 
 private:
 	VoltMeter *pBat = NULL;
+
+	float xCelcius = 0.0;
+	float xMaxCelcius = 0.0;
+	float xMinCelcius = 0.0;
+
+	float xVolts = 0.0;
+	float xMaxVolts = 0.0;
+	float xMinVolts = 0.0;
 };
 
 #endif /* SRC_RTCSTATUS_H_ */

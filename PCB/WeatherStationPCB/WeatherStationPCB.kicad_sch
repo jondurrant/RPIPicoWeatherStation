@@ -7657,6 +7657,12 @@
 		(uuid "e05f0809-8d6b-4f1b-9a7a-0137b7751401")
 	)
 	(junction
+		(at 179.07 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e2f09e53-ffcb-4672-b530-c9886a15bef6")
+	)
+	(junction
 		(at 31.75 36.83)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7809,6 +7815,16 @@
 			(type default)
 		)
 		(uuid "09352d11-66de-408c-8202-8092da53026e")
+	)
+	(wire
+		(pts
+			(xy 179.07 36.83) (xy 184.15 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09b01024-cf17-4dd4-be19-7c0b1d950fcb")
 	)
 	(wire
 		(pts
@@ -8119,6 +8135,16 @@
 			(type default)
 		)
 		(uuid "324d3526-1623-44b0-b349-f9c400b3cc6f")
+	)
+	(wire
+		(pts
+			(xy 168.91 29.21) (xy 179.07 29.21)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "32be0c1d-45fb-4650-badd-32b6153701a0")
 	)
 	(wire
 		(pts
@@ -9052,16 +9078,6 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 36.83) (xy 184.15 36.83)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aa1d218d-17cc-466c-9046-1617234ce8e6")
-	)
-	(wire
-		(pts
 			(xy 81.28 176.53) (xy 81.28 179.07)
 		)
 		(stroke
@@ -9709,6 +9725,16 @@
 			(type default)
 		)
 		(uuid "f47572e2-8f2d-4fe7-8de7-ec67ddfcf841")
+	)
+	(wire
+		(pts
+			(xy 175.26 21.59) (xy 179.07 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f55f2f66-4f0f-4b42-aa7f-b2fbce6303ca")
 	)
 	(wire
 		(pts
@@ -10414,7 +10440,7 @@
 		(uuid "b999acd1-7caf-4cc7-9e16-da2a9217958e")
 	)
 	(label "RTC_BAT"
-		(at 173.99 36.83 0)
+		(at 168.91 29.21 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11697,6 +11723,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 179.07 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3e75aa56-8e17-4dcf-a360-94170d20b975")
+		(property "Reference" "R8"
+			(at 181.61 31.7499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "23GR"
+			(at 181.61 34.2899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+			(at 177.292 33.02 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 179.07 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 179.07 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "6aa75acd-428a-4a5d-a689-4ea8432746d3")
+		)
+		(pin "1"
+			(uuid "00a47505-b3fe-4724-b423-363ede36b291")
+		)
+		(instances
+			(project ""
+				(path "/2a347091-c3ca-4b59-9235-ffe310fc00ca"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "GND_3")
 		(lib_id "power:GND")
 		(at 157.48 74.93 0)
@@ -12060,6 +12156,76 @@
 			(project "Weather Station 1"
 				(path "/2a347091-c3ca-4b59-9235-ffe310fc00ca"
 					(reference "SEN0500_S1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 179.07 25.4 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5887b09a-4f17-4be7-81f8-1e191968e9ae")
+		(property "Reference" "R9"
+			(at 181.61 24.1299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "23GR"
+			(at 181.61 26.6699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+			(at 177.292 25.4 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 179.07 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 179.07 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a85aeb05-7979-4621-af13-da1a3d1bc6f4")
+		)
+		(pin "2"
+			(uuid "b55ffb86-77e1-4979-ae66-980fcc45298b")
+		)
+		(instances
+			(project ""
+				(path "/2a347091-c3ca-4b59-9235-ffe310fc00ca"
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -15207,6 +15373,73 @@
 			(project "Weather Station 1"
 				(path "/2a347091-c3ca-4b59-9235-ffe310fc00ca"
 					(reference "I2C0B1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 175.26 21.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "eb0f9c6f-f633-41f9-8536-2349d33f298a")
+		(property "Reference" "#PWR029"
+			(at 175.26 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 175.26 26.162 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 175.26 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 175.26 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 175.26 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b24cc8a1-b4ab-4de5-b66f-bbcfac8dbc29")
+		)
+		(instances
+			(project "WeatherStationPCB"
+				(path "/2a347091-c3ca-4b59-9235-ffe310fc00ca"
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
