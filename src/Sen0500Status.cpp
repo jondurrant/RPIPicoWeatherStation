@@ -161,7 +161,7 @@ char* Sen0500Status::writeJson( char* dest,const  char * name, size_t* remLen ) 
 	p = json_objClose( p, remLen );
 
 	//Humid
-	p = json_objOpen( p, "humid", remLen );
+	p = json_objOpen( p, "humidity", remLen );
 		p = json_double(p,  "current",  xHumid, remLen );
 		p = json_double(p,  "min",  xHumidMin, remLen );
 		p = json_double(p,  "max",  xHumidMax, remLen );
