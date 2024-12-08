@@ -376,10 +376,13 @@ void main_task(void* params){
 
 	DeepSleepRTOS::singleton()->setRTC(station.getRTC());
 
+	uint32_t sleepMin = 1;
+
 	for(;;){
 		station.start();
 		bool on = wifiOn();
 
+		station.checkConfig();
 		for (int i=0; i < 10; i ++){
 			vTaskDelay(2000);
 			station.sample();
@@ -391,9 +394,10 @@ void main_task(void* params){
 		}
 		wifiOff();
 
-		printf("Going to sleep\n");
+		sleepMin = station.getSleepMin();
+		printf("Going to sleep %u min\n", sleepMin);
 		vTaskDelay(1000);
-		DeepSleepRTOS::singleton()->sleep(1,  WAKE_PAD);
+		DeepSleepRTOS::singleton()->sleep(sleepMin,  WAKE_PAD);
 		printf("Awake\n");
 
 		//vTaskDelay(10000);

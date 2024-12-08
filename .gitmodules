@@ -13,3 +13,6 @@
 [submodule "lib/FreeRTOS-FAT-CLI-for-RPi-Pico"]
 	path = lib/FreeRTOS-FAT-CLI-for-RPi-Pico
 	url = https://github.com/carlk3/FreeRTOS-FAT-CLI-for-RPi-Pico
+[submodule "lib/RPIPicoOnboardNVS"]
+	path = lib/RPIPicoOnboardNVS
+	url = https://github.com/jondurrant/RPIPicoOnboardNVS

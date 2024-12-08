@@ -29,6 +29,7 @@ class WeatherStationPayload  :
 		public PayloadPart {
 public:
 	WeatherStationPayload(RTCStatus * rtc);
+	WeatherStationPayload( );
 	virtual ~WeatherStationPayload();
 
 	virtual char * json();

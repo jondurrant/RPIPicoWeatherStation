@@ -9,6 +9,10 @@
 #include "WeatherStationPayload.h"
 #include "hardware/adc.h"
 #include "Request.h"
+#include "ConfigRequest.h"
+
+#include "tiny-json.h"
+#include "NVSOnboard.h"
 
 WeatherStation::WeatherStation() {
 }
@@ -36,6 +40,14 @@ void WeatherStation::init(){
 		pRTC 				= new RTCStatus(i2c0,  SDA0_PAD,  SCL0_PAD, RTC_BAT);
 
 		pPico 				= new PicoStatus();
+
+
+		//Check Configuration
+		int32_t nOffset;
+		if (NVS_OK == NVSOnboard::getInstance()->get_i32("offset", &nOffset)){
+			pVane->setOffset(double(nOffset));
+		}
+		NVSOnboard::getInstance()->get_u32("sleep", &xSleepMin);
 
 
 		//Perm running sensors
@@ -113,4 +125,74 @@ void WeatherStation::reset(){
 
 RTCStatus * WeatherStation::getRTC(){
 	return pRTC;
+}
+
+
+void WeatherStation::checkConfig(){
+	ConfigRequest conReq;
+	Request req(xHttpBuffer, WEATHER_STATION_HTTP_BUF);
+	printf("Req JSON: %s\n", conReq.json());
+	req.postJSON(WEATHER_STATION_CONFIG_URL, &conReq);
+	printf("Payload %.*s\n",  req.getPayloadLen(), req.getPayload());
+
+
+	int l = req.getPayloadLen();
+	memcpy(xHttpBuffer, req.getPayload(), l);
+	xHttpBuffer[l] = 0;
+
+	json_t mem[8];
+	json_t const* json = json_create(xHttpBuffer, mem, sizeof mem / sizeof *mem );
+	if ( !json ) {
+		puts("Error json create.");
+		return ;
+	}
+
+	json_t const* jVersion = json_getProperty( json, "version" );
+	if ( !jVersion || JSON_INTEGER != json_getType( jVersion ) ) {
+		printf("No VERSION\n");
+		return ;
+	}
+	int32_t nVersion = json_getInteger( jVersion );
+
+	bool newConfig = false;
+	int32_t version;
+	if (NVS_OK  != NVSOnboard::getInstance()->get_i32("version", &version)) {
+		newConfig = true;
+	} else {
+		if (nVersion > version){
+			newConfig = true;
+		}
+	}
+
+	if (newConfig){
+		printf("Updating Config from %d to %d\n", version, nVersion);
+		NVSOnboard::getInstance()->set_i32("version", nVersion);
+
+		json_t const* jOffset = json_getProperty( json, "offset" );
+		if ( !jOffset || JSON_INTEGER != json_getType( jOffset ) ) {
+			printf("No OFFSET\n");
+		} else {
+			int32_t nOffset = json_getInteger( jOffset );
+			NVSOnboard::getInstance()->set_i32("offset", nOffset);
+			pVane->setOffset(double(nOffset));
+		}
+
+		json_t const* jSleep = json_getProperty( json, "sleep" );
+		if ( !jSleep || JSON_INTEGER != json_getType( jSleep ) ) {
+			printf("No SLEEP\n");
+		} else {
+			xSleepMin = json_getInteger( jSleep );
+			NVSOnboard::getInstance()->set_u32("sleep", xSleepMin);
+		}
+
+		NVSOnboard::getInstance()->commit();
+	} else {
+		printf("Current Config is latest\n");
+	}
+
+
+}
+
+uint32_t WeatherStation::getSleepMin(){
+	return xSleepMin;
 }

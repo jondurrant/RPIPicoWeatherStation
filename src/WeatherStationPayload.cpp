@@ -16,7 +16,11 @@
 WeatherStationPayload::WeatherStationPayload(RTCStatus * rtc) {
 	addPart("header", this);
 	pRTC = rtc;
+}
 
+WeatherStationPayload::WeatherStationPayload() {
+	addPart("header", this);
+	pRTC = NULL;
 }
 
 WeatherStationPayload::~WeatherStationPayload() {
@@ -53,13 +57,15 @@ char* WeatherStationPayload::writeJson( char* dest, const char * name, size_t* r
 	t.sec = 0;
 
 
-	if (!rtc_get_datetime(&t)){
-		t.year = pRTC->get_year();
-		t.month=pRTC->get_mon();
-		t.day=pRTC->get_day();
-		t.hour=pRTC->get_hou();
-		t.min = pRTC->get_min();
-		t.sec = pRTC->get_sec();
+	if (pRTC != NULL){
+		if (!rtc_get_datetime(&t)){
+			t.year = pRTC->get_year();
+			t.month=pRTC->get_mon();
+			t.day=pRTC->get_day();
+			t.hour=pRTC->get_hou();
+			t.min = pRTC->get_min();
+			t.sec = pRTC->get_sec();
+		}
 	}
 
 	p = json_objOpen( p, name, remLen );

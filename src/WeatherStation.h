@@ -34,6 +34,10 @@
 #define WEATHER_STATION_SUBMIT_URL "http://vmu22a.local.jondurrant.com:5080/sampleSubmit"
 #endif
 
+#ifndef WEATHER_STATION_CONFIG_URL
+#define WEATHER_STATION_CONFIG_URL "http://vmu22a.local.jondurrant.com:5080/getConfig"
+#endif
+
 class WeatherStation {
 public:
 	WeatherStation();
@@ -46,6 +50,10 @@ public:
 	void reset();
 	void sample();
 	void submit();
+
+	void checkConfig();
+
+	uint32_t getSleepMin();
 
 	RTCStatus * getRTC();
 
@@ -64,6 +72,8 @@ private:
 	PicoStatus					*pPico;
 
 	char 								xHttpBuffer[WEATHER_STATION_HTTP_BUF];
+
+	uint32_t						xSleepMin = 1;
 
 };
 

@@ -32,6 +32,7 @@ void PowerCtr::pullUpI2C(uint8_t sda, uint8_t scl){
 void PowerCtr::on(){
 	if (xGP <= 28){
 		gpio_put(xGP, true);
+		//printf("Pull up %u\n", xGP);
 	}
 	if (xSDA <= 28){
 		gpio_pull_up(xSDA);

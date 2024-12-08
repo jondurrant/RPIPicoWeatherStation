@@ -27,7 +27,7 @@ target_link_libraries(${NAME}
     wolfssl
     picow_wsclient
     pico_lwip_sntp
-    FreeRTOS_FAT
+    nvs_onboard
 	)
 
 target_include_directories(${NAME} PRIVATE 
