@@ -34,7 +34,9 @@ void DeepSleepRTOS::setRTC(DS3231 *rtc){
 }
 
 void DeepSleepRTOS::gpio_callback(uint gpio, uint32_t events) {
+	//portENTER_CRITICAL(  );
 	DeepSleepRTOS::singleton()->recover();
+	//portEXIT_CRITICAL();
 
 	//DEBUG
 	//printf("GPIO Triggered Wake %d\n", gpio);

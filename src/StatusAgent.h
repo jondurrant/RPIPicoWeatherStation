@@ -44,6 +44,8 @@ protected:
 
 private:
 
+	static void gpio_callback(uint gpio, uint32_t events);
+
 	uint8_t xSWT;
 	uint8_t xRED;
 	uint8_t xGRN;

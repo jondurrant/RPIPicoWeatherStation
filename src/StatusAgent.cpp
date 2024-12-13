@@ -25,10 +25,12 @@ StatusAgent::StatusAgent(
 		gpio_set_dir(xSWT, GPIO_IN);
 		gpio_pull_up(xSWT);
 
-		gpio_set_irq_enabled(
+		gpio_set_irq_enabled_with_callback(
 				xSWT,
 			   GPIO_IRQ_EDGE_FALL,
-			   true);
+			   true,
+			   StatusAgent::gpio_callback
+			   );
 	}
 
 	if (xRED <= 28){
@@ -117,5 +119,9 @@ void StatusAgent::setStatus(uint32_t rgb){
 	xStatus = rgb;
 }
 
+
+void StatusAgent::gpio_callback(uint gpio, uint32_t events){
+	//NOP
+}
 
 

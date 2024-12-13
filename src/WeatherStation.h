@@ -31,11 +31,17 @@
 #endif
 
 #ifndef WEATHER_STATION_SUBMIT_URL
-#define WEATHER_STATION_SUBMIT_URL "http://vmu22a.local.jondurrant.com:5080/sampleSubmit"
+//#define WEATHER_STATION_SUBMIT_URL "http://vmu22a.local.jondurrant.com:5080/sampleSubmit"
+#define WEATHER_STATION_SUBMIT_URL "http://vzen.local.jondurrant.com:5080/sampleSubmit"
+//#define WEATHER_STATION_SUBMIT_URL "http://vmu22a.local.jondurrant.com:8080/iot_01/sampleSubmit"
+//#define WEATHER_STATION_SUBMIT_URL "http://vzen.local.jondurrant.com:80/iot_01/sampleSubmit"
 #endif
 
 #ifndef WEATHER_STATION_CONFIG_URL
-#define WEATHER_STATION_CONFIG_URL "http://vmu22a.local.jondurrant.com:5080/getConfig"
+//#define WEATHER_STATION_CONFIG_URL "http://vmu22a.local.jondurrant.com:5080/getConfig"
+#define WEATHER_STATION_CONFIG_URL "http://vzen.local.jondurrant.com:5080/getConfig"
+//#define WEATHER_STATION_CONFIG_URL "http://vmu22a.local.jondurrant.com:8080/iot_01/getConfig"
+//#define WEATHER_STATION_CONFIG_URL "http://vzen.local.jondurrant.com:80/iot_01/getConfig"
 #endif
 
 class WeatherStation {
