@@ -132,6 +132,9 @@ public:
 	 */
 	void enableDMA();
 
+    int	getSleptSecs();
+
+    int getWokenGPIO();
 
 private:
 	static DeepSleepRTOS * pSingleton ;
@@ -140,7 +143,7 @@ private:
 	static void rtcCB(void);
 	static void gpio_callback(uint gpio, uint32_t events);
 
-	void recover();
+	void recover(int gpio = -1);
 
 	/***
 	 * Reset the clocks
@@ -166,6 +169,12 @@ private:
 	 * €
 	 */
 	void notifyObservers(uint minutes, bool wake=false);
+
+    time_t getEpoch();
+
+    time_t xSleepEpoch = 0;
+    time_t xWakeEpoch = 0;
+    int xWokenGPIO = -1;
 
 	std::list<DormantNotification *> xObservers;
 

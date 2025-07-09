@@ -28,7 +28,6 @@ add_executable(${TEST_NAME}
     testAHT10.cpp
     testDS3231.cpp
     testPico.cpp
-    testSDLog.cpp
     testSen500.cpp
     testPayload.cpp
     
@@ -53,14 +52,15 @@ target_link_libraries(${TEST_NAME}
 	 LWIP_PORT
 	 pico_cyw43_arch_lwip_sys_freertos
 	 
-	 FreeRTOS_FAT
-	 
 	 coreHTTP
      urilib
      json_maker
      tiny_json
      wolfssl
      picow_wsclient
+     nvs_onboard
+     
+     
 	 
 )
 	

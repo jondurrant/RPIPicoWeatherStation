@@ -23,9 +23,18 @@ public:
 			);
 	virtual ~StatusAgent();
 
+	static StatusAgent *getInstance();
+
 
 	void setStatus(uint32_t rgb);
 
+	void setOnline();
+	void setOffline();
+	void setWake();
+	void setSleep();
+	void setOK();
+	void setFault();
+	void setFatal();
 
 protected:
 	/***
@@ -46,12 +55,15 @@ private:
 
 	static void gpio_callback(uint gpio, uint32_t events);
 
+	static StatusAgent *pSelf;
+
 	uint8_t xSWT;
 	uint8_t xRED;
 	uint8_t xGRN;
 	uint8_t xBLU;
 
 	uint32_t xStatus =0x00FF00;
+
 };
 
 #endif /* SRC_STATUSAGENT_H_ */

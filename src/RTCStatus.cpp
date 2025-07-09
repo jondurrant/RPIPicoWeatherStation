@@ -61,9 +61,12 @@ void RTCStatus::sample(){
 		}
 	}
 
-	xCelcius = get_temp_f();
-	xMaxCelcius = fmax(xCelcius, xMaxCelcius);
-	xMinCelcius = fmin(xCelcius, xMinCelcius);
+	float f = get_temp_f();
+	if (f > DS3231_ERROR) {
+		xCelcius = f;
+		xMaxCelcius = fmax(xCelcius, xMaxCelcius);
+		xMinCelcius = fmin(xCelcius, xMinCelcius);
+	}
 
 	xVolts = batVolts();
 	xMaxVolts = fmax(xMaxVolts, xVolts);

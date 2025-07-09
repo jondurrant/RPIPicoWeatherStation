@@ -8,6 +8,8 @@
 #include "StatusAgent.h"
 #include <cstdio>
 
+StatusAgent * StatusAgent::pSelf = NULL;
+
 StatusAgent::StatusAgent(
 		uint8_t swt,
 		uint8_t red,
@@ -60,10 +62,16 @@ StatusAgent::StatusAgent(
 		pwm_set_gpio_level (xBLU, 0 );
 		//printf("BLU %u slicer %u\n", xBLU, slicer);
 	}
+
+	StatusAgent::pSelf= this;
 }
 
 StatusAgent::~StatusAgent() {
 	// NOP
+}
+
+StatusAgent * StatusAgent::getInstance(){
+	return pSelf;
 }
 
 configSTACK_DEPTH_TYPE StatusAgent::getMaxStackSize(){
@@ -117,11 +125,37 @@ void StatusAgent::displayStatus(uint32_t status){
 
 void StatusAgent::setStatus(uint32_t rgb){
 	xStatus = rgb;
+
+	if (xSWT > 28) {
+		displayStatus( xStatus);
+	}
 }
 
 
 void StatusAgent::gpio_callback(uint gpio, uint32_t events){
 	//NOP
+}
+
+void StatusAgent::setOnline(){
+	setStatus(0x000000FF);
+}
+void StatusAgent::setOffline(){
+	setStatus(0x0000FF00);
+}
+void StatusAgent::setWake(){
+	setStatus(0x00FFFFFF);
+}
+void StatusAgent::setSleep(){
+	setStatus(0x001F1F1F);
+}
+void StatusAgent::setOK(){
+	setStatus(0x0000FF00);
+}
+void StatusAgent::setFault(){
+	setStatus(0x00FFFF00);
+}
+void StatusAgent::setFatal(){
+	setStatus(0x00FF0000);
 }
 
 

@@ -18,6 +18,7 @@
 #include "pico/runtime_init.h"
 
 #include "FreeRTOS.h"
+#include "task.h"
 
 
 DeepSleepRTOS::DeepSleepRTOS() {
@@ -35,7 +36,7 @@ void DeepSleepRTOS::setRTC(DS3231 *rtc){
 
 void DeepSleepRTOS::gpio_callback(uint gpio, uint32_t events) {
 	//portENTER_CRITICAL(  );
-	DeepSleepRTOS::singleton()->recover();
+	DeepSleepRTOS::singleton()->recover(gpio);
 	//portEXIT_CRITICAL();
 
 	//DEBUG
@@ -44,6 +45,7 @@ void DeepSleepRTOS::gpio_callback(uint gpio, uint32_t events) {
 
 void DeepSleepRTOS::sleep(uint8_t wakePad){
 	if (wakePad <= 28){
+		printf("Setting RTC for sleep time\n");
 		gpio_init(wakePad);
 		gpio_pull_up(wakePad);
 		gpio_set_dir(wakePad, GPIO_IN);
@@ -64,7 +66,11 @@ void DeepSleepRTOS::sleep(uint8_t wakePad){
 				   DeepSleepRTOS::gpio_callback
 				   );
 		}
+	} else {
+		printf("wakePad > 28, so not setting RTC\n");
 	}
+
+	vTaskSuspendAll();
 
 	sleep_run_from_xosc();
 	sleep_until_interupt();
@@ -82,6 +88,8 @@ void DeepSleepRTOS::sleep(uint8_t wakePad){
 		gpio_disable_pulls(wakePad);
 	}
 
+	xTaskResumeAll();
+
 }
 
 void DeepSleepRTOS::rtcCB(void) {
@@ -92,7 +100,8 @@ void DeepSleepRTOS::rtcCB(void) {
 	//printf("Int RTC Triggered Waked\n");
 }
 
-void DeepSleepRTOS::recover(){
+void DeepSleepRTOS::recover(int gpio){
+	xWokenGPIO = gpio;
 	recover_from_sleep(scb_orig, clock0_orig, clock1_orig);
 }
 
@@ -177,11 +186,14 @@ void DeepSleepRTOS::recover_from_sleep(uint scb_orig, uint clock0_orig, uint clo
     clocks_init();
    stdio_init_all();
 
+   xWakeEpoch = getEpoch();
+
    return;
 }
 
 void DeepSleepRTOS::sleep_until_interupt( ) {
 
+	xSleepEpoch = getEpoch();
 
     // Turn off all clocks when in sleep mode except for RTC
 	if (pRTC == NULL){
@@ -285,3 +297,48 @@ void DeepSleepRTOS::setOwnGPIOCallbacks(bool on){
 	xOwnGPIOCallbacks = on;
 }
 
+
+
+time_t DeepSleepRTOS::getEpoch(){
+	datetime_t t;
+	struct tm time;
+	time_t epoch;
+	if (pRTC != NULL){
+		t.sec = pRTC->get_sec();
+		t.min = pRTC->get_min();
+		t.hour = pRTC->get_hou();
+		t.day = pRTC->get_day();
+		t.month = pRTC->get_mon();
+		t.year = pRTC->get_year();
+	} else {
+		if (!rtc_get_datetime (&t)){
+			return -1;
+		}
+	}
+	time.tm_sec	 = t.sec;
+	time.tm_min = t.min;
+	time.tm_hour = t.hour;
+	time.tm_mday = t.day;
+	time.tm_year	= t.year;
+	time.tm_isdst = false;
+
+
+	epoch = mktime( &time);
+	return epoch;
+}
+
+
+int	DeepSleepRTOS::getSleptSecs(){
+	if ((xSleepEpoch == 0) || (xWakeEpoch == 0)) {
+		return -1;
+	}
+	if (xSleepEpoch > xWakeEpoch) {
+		return -1;
+	}
+
+	return xWakeEpoch = xSleepEpoch;
+}
+
+int DeepSleepRTOS::getWokenGPIO(){
+	return xWokenGPIO;
+}

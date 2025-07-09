@@ -23,7 +23,9 @@ TEST(DS3231Grp, Test){
 	 rtc.set_power_gp(RTC_VCC);
 	 rtc.on();
 	 vTaskDelay(500);
-	 printf("RTC: %s\n", rtc.get_time_str());
+	 printf("RTC: %s %s\n",
+			 rtc.get_date_str(),
+			 rtc.get_time_str());
 	 printf("RTC Temp %f\n", rtc.get_temp_f());
 
 }

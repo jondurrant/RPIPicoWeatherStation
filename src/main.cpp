@@ -194,7 +194,7 @@ void main_task(void* params){
 
 
     StatusAgent statusAgent(
-    		SWT_PAD,
+    		SWT_PAD + 28,
 			RED_PAD,
 			GRN_PAD,
 			BLU_PAD);
@@ -209,6 +209,11 @@ void main_task(void* params){
 	for(;;){
 		station.start();
 		bool on = wifiOn();
+		if (on){
+			statusAgent.setOnline();
+		} else {
+			statusAgent.setFault();
+		}
 		runTimeStats();
 
 		station.checkConfig();
@@ -226,12 +231,18 @@ void main_task(void* params){
 			station.submit();
 		}
 		wifiOff();
+		statusAgent.setOffline();
 
 		sleepMin = station.getSleepMin();
 		printf("Going to sleep %u min\n", sleepMin);
 		vTaskDelay(1000);
+		statusAgent.setSleep();
 		DeepSleepRTOS::singleton()->sleep(sleepMin,  WAKE_PAD);
-		printf("Awake\n");
+		//DeepSleepRTOS::singleton()->sleepMin(1);
+		statusAgent.setWake();
+		printf("Awake: after %d secs by GP%d\n",
+				DeepSleepRTOS::singleton()->getSleptSecs(),
+				DeepSleepRTOS::singleton()->getWokenGPIO());
 
 		//vTaskDelay(10000);
 		vTaskDelay(1000);
